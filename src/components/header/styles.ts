@@ -2,11 +2,6 @@ import { StyleSheet } from "react-native";
 import { colors } from "@/src/styles/colors";
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        
-    },
-
     containerElements: {
         backgroundColor: colors.dark[700],
         flexDirection: "row",
@@ -37,5 +32,24 @@ export const styles = StyleSheet.create({
 
     icon: {
         color: colors.light[100],
+    },
+
+    span: {
+        color: colors.light[100],
+        fontSize: 14,
+        fontWeight: "500",
+        textAlign: "center",
+
+        backgroundColor: colors.tints.tomato[100],
+        paddingVertical: 3,
+        paddingHorizontal: 6,
+        borderRadius: 999,
+    },
+
+    badgeContainer: {
+        position: "absolute",
+        top: -12,
+        right: -8,
+
     }
 })

@@ -1,10 +1,10 @@
 import { styles } from "./styles";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Image, Text, TouchableOpacity,  } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function Header(){
     return(
-        <View style={styles.container}>
+        <View>
             <View style={styles.containerElements}>
                 <TouchableOpacity>
                     <MaterialIcons size={24} style={styles.icon} name="menu"/>
@@ -17,6 +17,9 @@ export default function Header(){
 
                 <TouchableOpacity>
                     <MaterialIcons size={24} style={styles.icon} name="shopping-cart"/>
+                    <View style={styles.badgeContainer}>
+                        <Text style={styles.span}>0</Text>
+                    </View>
                 </TouchableOpacity>
             </View>
         </View>

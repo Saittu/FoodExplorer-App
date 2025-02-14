@@ -5,24 +5,20 @@ import { View, ActivityIndicator, Button } from "react-native";
 import { colors } from "@/src/styles/colors";
 
 export default function Layout(){
-  const [isMounted, setIsMounted] = useState(false); // Verifica se o layout está pronto
+  const [isMounted, setIsMounted] = useState(false); 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
-
-
-    
 
     const backgroundColor = colors.dark[400]
 
     useEffect(() => {
-      setIsMounted(true); // Marca o layout como montado
+      setIsMounted(true); 
     }, []);
   
     useEffect(() => {
       if (isMounted) {
-        // Simula a checagem de autenticação
         setTimeout(() => {
-          const userToken = null; // Substituir pelo token real no futuro
+          const userToken = null; 
           setIsAuthenticated(!!userToken);
   
           if (userToken) {
