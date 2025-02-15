@@ -3,7 +3,7 @@ import { colors } from "@/src/styles/colors";
 
 export const styles = StyleSheet.create({
     container: {
-        // width: 300,
+        width: "100%",
         paddingHorizontal: 32,
         paddingVertical: 12,
         justifyContent: "center",

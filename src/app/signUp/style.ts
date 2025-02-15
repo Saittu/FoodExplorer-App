@@ -23,6 +23,9 @@ export const styles = StyleSheet.create({
     },
 
     form: {
+        width: "100%",
+        paddingRight: 47,
+        paddingLeft: 65,
         gap: 32
     },
 
@@ -32,4 +35,5 @@ export const styles = StyleSheet.create({
         fontWeight: "500",
         textAlign: "center"
     }
+
 })

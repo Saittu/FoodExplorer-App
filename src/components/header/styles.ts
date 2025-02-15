@@ -1,3 +1,4 @@
+import { Platform, StatusBar } from "react-native";
 import { StyleSheet } from "react-native";
 import { colors } from "@/src/styles/colors";
 
@@ -7,7 +8,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        paddingTop: 60,
+        paddingTop: Platform.OS === "ios" ? 60 : StatusBar.currentHeight || 0,
         paddingBottom: 32,
         paddingHorizontal: 28,
         width: "100%",

@@ -1,14 +1,20 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons"
 import { styles } from "./styles"
 import { LinearGradient } from "expo-linear-gradient"
 
 import Header from "@/src/components/header";
-
+import BoxRefeicoes from "@/src/components/boxRefeicoes";
+import Footer from "@/src/components/footer";
+import { pratos } from "@/src/utils/pratos";
 
 export default function Home() {
+    const pratosFirst = pratos.slice(0, 3)
+    const pratosSecond = pratos.slice(3, 6)
+    const pratosThird = pratos.slice(6, 8)
+
     return(
-        <View>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <Header/>
 
             <View style={styles.containerInfo}>
@@ -21,7 +27,12 @@ export default function Home() {
                 </LinearGradient>
             </View>
             
+            <BoxRefeicoes categorias="Refeições" dishes={pratosFirst}/>
+            <BoxRefeicoes categorias="Entradas" dishes={pratosSecond}/>
+            <BoxRefeicoes categorias="Outros" dishes={pratosThird}/>
 
-        </View>
+            <Footer/>
+        </ScrollView>
+
     )
 }

@@ -12,9 +12,8 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: colors.dark[900],
         borderRadius: 8,
-        width: 300,
+        width: "100%",
         color: colors.light[500]
-        // marginTop: 72
         
     },
 

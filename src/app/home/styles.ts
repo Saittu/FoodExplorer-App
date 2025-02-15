@@ -5,7 +5,8 @@ export const styles = StyleSheet.create({
     containerInfo: {
         marginTop: 44 ,
         paddingLeft: 30,
-        paddingRight: 16   
+        paddingRight: 16,
+        marginBottom: 38
     },
 
     bannerContainer: {
