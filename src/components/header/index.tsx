@@ -2,11 +2,15 @@ import { styles } from "./styles";
 import { View, Image, Text, TouchableOpacity,  } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-export default function Header(){
+type Props = {
+    onDetails: () => void
+}
+
+export default function Header({ onDetails }: Props){
     return(
         <View>
             <View style={styles.containerElements}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onDetails}>
                     <MaterialIcons size={24} style={styles.icon} name="menu"/>
                 </TouchableOpacity>
                 

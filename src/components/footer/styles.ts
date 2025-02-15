@@ -1,3 +1,4 @@
+import { Platform, StatusBar } from "react-native";
 import { StyleSheet } from "react-native";
 import { colors } from "@/src/styles/colors";
 
@@ -11,8 +12,9 @@ export const styles = StyleSheet.create({
         width: "100%",
         flexDirection: "row",
         
+        paddingBottom: Platform.OS === "ios" ? 50 : 30 ,
         paddingVertical: 34,
-        paddingHorizontal: 24,
+        paddingHorizontal: Platform.OS === "ios" ? 20 : 30,
         gap: 8,
 
         alignItems: "center",

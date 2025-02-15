@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import { colors } from "@/src/styles/colors";
 
 export const styles = StyleSheet.create({
@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
     form: {
         width: "100%",
         paddingRight: 47,
-        paddingLeft: 65,
+        paddingLeft: Platform.OS === "ios" ? 48 : 65,
         gap: 32
     },
 

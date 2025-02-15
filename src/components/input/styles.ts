@@ -28,6 +28,13 @@ export const styles = StyleSheet.create({
         color: colors.light[400], 
         marginBottom: 8
     },
+    
+    icon: {
+        position: "absolute",
+        zIndex: 1,
+        bottom: 13,
+        left: 10
+    }
 
 
 })
