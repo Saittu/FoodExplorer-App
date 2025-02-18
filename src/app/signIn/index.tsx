@@ -1,9 +1,8 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { styles } from "./styles"
+import { styles } from "./styles";
 import { Input } from "@/src/components/input";
 import { Button } from "@/src/components/button";
 import { useRouter } from "expo-router";
-import { Router } from "expo-router";
 
 
 export default function signIn() {
@@ -22,7 +21,7 @@ export default function signIn() {
 
                 <Input label={"Senha"} placeholder="No mínimo 6 caracteres" autoCorrect={false} secureTextEntry/>
 
-                <Button title="Entrar" onPress={() => router.navigate("/home")}/>
+                <Button title="Entrar" onPress={() => router.replace("/home")}/>
 
                 <TouchableOpacity onPress={() => router.navigate("/signUp")}>
                     <Text style={styles.textRoute}>Criar uma conta</Text>

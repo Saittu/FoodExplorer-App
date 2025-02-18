@@ -5,7 +5,9 @@ import { colors } from "@/src/styles/colors";
 export const styles = StyleSheet.create({
     box: {
         flex: 1,
-        paddingTop: 24
+        paddingTop: 24,
+
+        justifyContent: "flex-end"
     },
 
     container: {

@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { styles } from "./style"
+import { styles } from "./style";
 import { Input } from "@/src/components/input";
 import { Button } from "@/src/components/button";
 import { router } from "expo-router";
@@ -23,7 +23,7 @@ export default function signUp() {
 
                 <Button title="Cadastrar"/>
 
-                <TouchableOpacity onPress={() => router.back()}>
+                <TouchableOpacity onPress={() => router.replace("/signIn")}>
                     <Text style={styles.textRoute}>Já tenho uma conta</Text>
                 </TouchableOpacity>
                 

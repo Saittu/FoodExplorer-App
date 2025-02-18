@@ -3,13 +3,14 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { Button } from "../button";
 import { type Pratos, pratos } from "@/src/utils/pratos";
+import { router } from "expo-router";
 
 type Props = Pratos & {
     categorias: string
     dishes: Pratos[]
 }
 
-export default function BoxRefeicoes({ categorias, dishes }: Props) {
+export default function BoxPratos({ categorias, dishes }: Props) {
     return (
         <View>
             <Text style={styles.categoria}>{categorias}</Text>
@@ -28,7 +29,7 @@ export default function BoxRefeicoes({ categorias, dishes }: Props) {
             
                             <Image source={item.image} />
             
-                            <TouchableOpacity style={styles.refeicaoText}>
+                            <TouchableOpacity style={styles.refeicaoText} onPress={() => {router.navigate("/pratos")}}>
                                 <Text style={styles.title}>{item.name}</Text>
                                 <MaterialIcons style={styles.icon} size={14} name="arrow-forward"/>
                             </TouchableOpacity>

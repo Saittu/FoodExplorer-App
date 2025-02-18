@@ -52,5 +52,61 @@ export const styles = StyleSheet.create({
         top: -12,
         right: -8,
 
+    },
+
+    modal: {
+        flex: 1
+    },
+
+    modalHeader: {
+        width: "100%",
+        backgroundColor: colors.dark[700],
+
+        flexDirection: "row",
+        gap: 16,
+
+        paddingTop: 64,
+        paddingBottom: 32,
+        paddingLeft: 28,
+
+        alignItems: "center"
+    },
+
+    headerTitle: {
+        color: colors.light[100],
+        fontSize: 21.16,
+    },
+
+    modalContent: {
+        backgroundColor: colors.dark[400],
+        flex: 1,
+
+        paddingHorizontal: 28,
+        paddingTop: 20
+    },
+
+    containerText: {
+        marginTop: 36,
+
+        padding: 10,
+
+        borderBottomColor: colors.dark[1000],
+        borderBottomWidth: 1,
+    },
+
+    contentText: {
+        
+
+        color: colors.light[300],
+        fontSize: 24,
+        fontWeight: "200"
+    },
+
+    boxFooter: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0
     }
+
 })

@@ -3,6 +3,7 @@ import { colors } from "@/src/styles/colors";
 
 export const styles = StyleSheet.create({
     container: {
+        maxWidth: 500,
         width: "100%",
         paddingHorizontal: 32,
         paddingVertical: 12,
@@ -10,7 +11,10 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         gap: 8,
         borderRadius: 5,
-        backgroundColor: colors.tints.tomato[100]
+        backgroundColor: colors.tints.tomato[100],
+
+        flexDirection: "row",
+        
     },
 
     title: {

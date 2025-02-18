@@ -1,16 +1,31 @@
 import { styles } from "./styles";
-import { View, Image, Text, TouchableOpacity,  } from "react-native";
+import { View, Image, Text, TouchableOpacity, Modal,  } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Input } from "../input";
+import Footer from "../footer";
+import { colors } from "@/src/styles/colors";
+import { useState } from "react";
+import { router } from "expo-router";
 
-type Props = {
-    onDetails: () => void
-}
+export default function Header(){
+    const [showModal, setShowModal] = useState(false)
 
-export default function Header({ onDetails }: Props){
+    const handleDetails = () => {
+        setShowModal(true)
+    }
+    
+    const handleCloseModal = () => {
+        setTimeout(() => {
+            router.replace("/signIn"); 
+        }, 100);
+        setShowModal(false)
+    }
+
+
     return(
         <View>
             <View style={styles.containerElements}>
-                <TouchableOpacity onPress={onDetails}>
+                <TouchableOpacity onPress={handleDetails}>
                     <MaterialIcons size={24} style={styles.icon} name="menu"/>
                 </TouchableOpacity>
                 
@@ -26,6 +41,34 @@ export default function Header({ onDetails }: Props){
                     </View>
                 </TouchableOpacity>
             </View>
+
+            <Modal  transparent visible={showModal} animationType="fade">
+                <View style={styles.modal}>
+                    <View style={styles.modalHeader}>
+                        <TouchableOpacity onPress={() => {setShowModal(false)}}>
+                            <MaterialIcons color={colors.light[100]} size={26} name="close" />
+                        </TouchableOpacity>
+                        <Text style={styles.headerTitle}>Menu</Text>
+                    </View>
+
+                    <View style={styles.modalContent}>
+                        
+                        <Input icon="search" placeholder="Busque por pratos ou ingredientes"/>
+
+                        <View style={styles.containerText}>
+                            <TouchableOpacity onPress={handleCloseModal}>
+                                <Text  style={styles.contentText} >Sair</Text>
+                            </TouchableOpacity>
+                        </View>
+                    
+                    </View>
+
+                    <View style={styles.boxFooter}>
+                        <Footer/>
+                    </View>       
+
+                </View>
+            </Modal>
         </View>
     )
 }
