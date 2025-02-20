@@ -7,12 +7,12 @@ import { Button } from "@/src/components/button";
 import { colors } from "@/src/styles/colors";
 import { type Ingredientes, ingredientes } from "@/src/utils/pratos";
 import { router } from "expo-router";
+import { useCart } from "@/src/context/carContext";
 
-type Props = Ingredientes & {
-    ingredients: Ingredientes[]
-}
+
 
 export default function Pratos() {
+    const { addToCart } = useCart()
 
     return (
         <View style={styles.container}>
@@ -67,7 +67,7 @@ export default function Pratos() {
                         </View>
 
                         <View>
-                            <Button icon="shopping-cart" title="pedir ∙ R$ 25,00"/>
+                            <Button icon="shopping-cart" title="pedir ∙ R$ 25,00" />
                         </View>
                         
                     </View>

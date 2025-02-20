@@ -6,12 +6,15 @@ import Header from "@/src/components/header";
 import BoxPratos from "@/src/components/boxPratos";
 import Footer from "@/src/components/footer";
 import { pratos } from "@/src/utils/pratos";
+import { useState } from "react";
+import { useCart } from "@/src/context/carContext";
 
 export default function Home() {
+    const { addToCart } = useCart()
+
     const pratosFirst = pratos.slice(0, 3)
     const pratosSecond = pratos.slice(3, 6)
     const pratosThird = pratos.slice(6, 8)
-
     return(
         <ScrollView showsVerticalScrollIndicator={false}>
             <Header/>
@@ -26,9 +29,9 @@ export default function Home() {
                 </LinearGradient>
             </View>
             
-            <BoxPratos categorias="Refeições" dishes={pratosFirst} />
-            <BoxPratos categorias="Entradas" dishes={pratosSecond}/>
-            <BoxPratos categorias="Outros" dishes={pratosThird}/>
+            <BoxPratos categorias="Refeições" dishes={pratosFirst} onAddToCart={addToCart}/>
+            <BoxPratos categorias="Entradas" dishes={pratosSecond} onAddToCart={addToCart}/>
+            <BoxPratos categorias="Outros" dishes={pratosThird} onAddToCart={addToCart}/>
 
 
             <Footer/>

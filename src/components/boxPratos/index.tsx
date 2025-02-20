@@ -1,16 +1,55 @@
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Image, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { Button } from "../button";
-import { type Pratos, pratos } from "@/src/utils/pratos";
-import { router } from "expo-router";
+import { type Pratos } from "@/src/utils/pratos";
+import { router, useFocusEffect } from "expo-router";
+import { useCallback, useRef, useState } from "react";
+import { colors } from "@/src/styles/colors";
+
 
 type Props = Pratos & {
     categorias: string
     dishes: Pratos[]
+    onAddToCart: (prato: Pratos) => void
 }
 
-export default function BoxPratos({ categorias, dishes }: Props) {
+export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) { 
+    const [favorite, setFavorite] = useState<Record<string,boolean>>({})   
+    const [countMap, setCountMap] = useState<Record<string, number>>(
+        dishes.reduce((acc, dish) => {
+            acc[dish.id] = dish.count || 1;
+            return acc;
+        }, {} as Record<string, number>)
+    );
+    const [scaleValues, setScaleValues] = useState<Record<string, Animated.Value>>(
+        dishes.reduce((acc, dish) => {
+            acc[dish.id] = new Animated.Value(1);
+            return acc;
+        }, {} as Record<string, Animated.Value>)
+    );
+
+    function handleCount(id: string, action: "increase" | "decrease") {
+        setCountMap((prev) => ({
+            ...prev,
+            [id]: Math.max(1, (prev[id] || 1) + (action === "increase" ? 1 : -1))
+        }))
+    }
+
+    function toggleFavorite(id: string) {
+        setFavorite((prev) => ({
+            ...prev,
+            [id]: !prev[id]
+
+            
+        }))
+
+        Animated.sequence([
+            Animated.timing(scaleValues[id], { toValue: 1.3, duration: 150, useNativeDriver: true }), 
+            Animated.timing(scaleValues[id], { toValue: 1, duration: 150, useNativeDriver: true }) 
+        ]).start();
+    }
+
     return (
         <View>
             <Text style={styles.categoria}>{categorias}</Text>
@@ -23,8 +62,13 @@ export default function BoxPratos({ categorias, dishes }: Props) {
                 renderItem={({ item }) => (
                     <View style={styles.containerPratos}>
                         <View style={styles.content}>
-                            <TouchableOpacity style={styles.iconHeart}>
-                                <MaterialIcons style={styles.icon} size={24} name="favorite-border" />
+                            <TouchableOpacity style={styles.iconHeart} onPress={() => toggleFavorite(item.id)}>
+                                <Animated.View style={{ transform: [{ scale: scaleValues[item.id]}]}}>
+                                    <MaterialIcons 
+                                        size={24} name={favorite[item.id] ? "favorite" : "favorite-border"} 
+                                        color={favorite[item.id] ? colors.tints.tomato[300] : colors.light[300]}
+                                        />
+                                </Animated.View>
                             </TouchableOpacity>
             
                             <Image source={item.image} />
@@ -37,18 +81,20 @@ export default function BoxPratos({ categorias, dishes }: Props) {
                             <Text style={styles.price}>R$ {item.price}</Text>
             
                             <View style={styles.quantity}>
-                                <TouchableOpacity >
+                                <TouchableOpacity onPress={() => {handleCount(item.id, "decrease")}}>
                                     <MaterialIcons style={styles.icon} size={24} name="remove"/>
                                 </TouchableOpacity>
             
-                                <Text style={styles.quantityText}>01</Text>
+                                <Text style={styles.quantityText}>
+                                    {countMap[item.id]?.toString().padStart(2, "0")}
+                                </Text>
             
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={() => {handleCount(item.id, "increase")}} >
                                     <MaterialIcons style={styles.icon} size={24} name="add"/>
                                 </TouchableOpacity>
                             </View>
             
-                            <Button title="incluir" />
+                            <Button title="incluir" onPress={() => onAddToCart(item)} />
             
                     </View>
                 </View>
@@ -57,3 +103,4 @@ export default function BoxPratos({ categorias, dishes }: Props) {
         </View>
     )
 }
+

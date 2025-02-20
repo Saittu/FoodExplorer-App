@@ -4,10 +4,13 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Input } from "../input";
 import Footer from "../footer";
 import { colors } from "@/src/styles/colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { router } from "expo-router";
+import { useCart } from "@/src/context/carContext";
 
 export default function Header(){
+    const { cart } = useCart();
+    const { cartCount } = useCart()
     const [showModal, setShowModal] = useState(false)
 
     const handleDetails = () => {
@@ -20,6 +23,11 @@ export default function Header(){
         }, 100);
         setShowModal(false)
     }
+
+    useEffect(() => {
+        console.log("Carrinho global:", cart); 
+    }, [cart]); 
+
 
 
     return(
@@ -37,7 +45,7 @@ export default function Header(){
                 <TouchableOpacity>
                     <MaterialIcons size={24} style={styles.icon} name="shopping-cart"/>
                     <View style={styles.badgeContainer}>
-                        <Text style={styles.span}>0</Text>
+                        <Text style={styles.span}>{cartCount}</Text>
                     </View>
                 </TouchableOpacity>
             </View>

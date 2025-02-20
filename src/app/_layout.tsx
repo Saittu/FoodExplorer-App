@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 import { View, ActivityIndicator, Button } from "react-native";
 import { colors } from "@/src/styles/colors";
+import { CartProvider } from "../context/carContext";
 
 export default function Layout(){
   const [isMounted, setIsMounted] = useState(false); 
@@ -39,11 +40,13 @@ export default function Layout(){
     }
 
     return(
+      <CartProvider>
         <Stack 
             screenOptions={{
                 headerShown: false,
                 contentStyle: { backgroundColor }
             }}
         />
+      </CartProvider>
     )
 }
