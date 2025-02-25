@@ -35,24 +35,25 @@ export const styles = StyleSheet.create({
         color: colors.light[100],
     },
 
+    badgeContainer: {
+        position: "absolute",
+        top: -12,
+        right: -8,
+        justifyContent: "center", // Centraliza o conteúdo verticalmente
+        alignItems: "center", // Centraliza o conteúdo horizontalmente
+    },
     span: {
         color: colors.light[100],
         fontSize: 14,
         fontWeight: "500",
         textAlign: "center",
-
         backgroundColor: colors.tints.tomato[100],
         paddingVertical: 3,
-        paddingHorizontal: 6,
+        paddingHorizontal: 8, // Espaço interno suficiente
         borderRadius: 999,
-        flexDirection: "row"
-    },
-
-    badgeContainer: {
-        position: "absolute",
-        top: -12,
-        right: -8,
-
+        minWidth: 24, // Espaço mínimo para 2 dígitos
+        height: 24, // Altura fixa para o círculo
+        lineHeight: 18, // Ajusta a linha para centralizar o texto verticalmente
     },
 
     modal: {
@@ -103,11 +104,6 @@ export const styles = StyleSheet.create({
         fontWeight: "200"
     },
 
-    boxFooter: {
-        position: "absolute",
-        bottom: 0,
-        left: 0,
-        right: 0
-    }
+
 
 })

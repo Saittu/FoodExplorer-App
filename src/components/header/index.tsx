@@ -2,7 +2,6 @@ import { styles } from "./styles";
 import { View, Image, Text, TouchableOpacity, Modal,  } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Input } from "../input";
-import Footer from "../footer";
 import { colors } from "@/src/styles/colors";
 import { useEffect, useState } from "react";
 import { router } from "expo-router";
@@ -42,10 +41,12 @@ export default function Header(){
                     <Text style={styles.text}>Food Explorer</Text>
                 </View>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => {router.navigate("/cart")}}>
                     <MaterialIcons size={24} style={styles.icon} name="shopping-cart"/>
                     <View style={styles.badgeContainer}>
-                        <Text style={styles.span}>{cartCount}</Text>
+                        <Text style={styles.span}>
+                            {cartCount}
+                        </Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -70,10 +71,7 @@ export default function Header(){
                         </View>
                     
                     </View>
-
-                    <View style={styles.boxFooter}>
-                        <Footer/>
-                    </View>       
+ 
 
                 </View>
             </Modal>

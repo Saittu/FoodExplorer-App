@@ -7,11 +7,10 @@ import { router, useFocusEffect } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { colors } from "@/src/styles/colors";
 
-
 type Props = Pratos & {
     categorias: string
     dishes: Pratos[]
-    onAddToCart: (prato: Pratos) => void
+    onAddToCart: (prato: Pratos, count: number) => void
 }
 
 export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) { 
@@ -40,8 +39,6 @@ export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) {
         setFavorite((prev) => ({
             ...prev,
             [id]: !prev[id]
-
-            
         }))
 
         Animated.sequence([
@@ -71,9 +68,9 @@ export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) {
                                 </Animated.View>
                             </TouchableOpacity>
             
-                            <Image source={item.image} />
+                            <Image source={item.imageSmall} />
             
-                            <TouchableOpacity style={styles.refeicaoText} onPress={() => {router.navigate("/pratos")}}>
+                            <TouchableOpacity style={styles.refeicaoText} onPress={() => {router.push(`/pratos?id=${item.id}`)}}>
                                 <Text style={styles.title}>{item.name}</Text>
                                 <MaterialIcons style={styles.icon} size={14} name="arrow-forward"/>
                             </TouchableOpacity>
@@ -94,7 +91,7 @@ export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) {
                                 </TouchableOpacity>
                             </View>
             
-                            <Button title="incluir" onPress={() => onAddToCart(item)} />
+                            <Button title="incluir" onPress={() => onAddToCart(item, countMap[item.id])} />
             
                     </View>
                 </View>
@@ -103,4 +100,3 @@ export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) {
         </View>
     )
 }
-

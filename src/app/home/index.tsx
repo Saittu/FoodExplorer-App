@@ -4,7 +4,6 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import Header from "@/src/components/header";
 import BoxPratos from "@/src/components/boxPratos";
-import Footer from "@/src/components/footer";
 import { pratos } from "@/src/utils/pratos";
 import { useState } from "react";
 import { useCart } from "@/src/context/carContext";
@@ -34,7 +33,6 @@ export default function Home() {
             <BoxPratos categorias="Outros" dishes={pratosThird} onAddToCart={addToCart}/>
 
 
-            <Footer/>
             
         </ScrollView>
 

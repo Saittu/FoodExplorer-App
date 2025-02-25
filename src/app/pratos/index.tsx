@@ -2,47 +2,55 @@ import { View, Text, Image, TouchableOpacity, FlatList, ScrollView } from "react
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./style";
 import Header from "@/src/components/header";
-import Footer from "@/src/components/footer";
 import { Button } from "@/src/components/button";
 import { colors } from "@/src/styles/colors";
-import { type Ingredientes, ingredientes } from "@/src/utils/pratos";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useCart } from "@/src/context/carContext";
+import { Pratos, pratos } from "@/src/utils/pratos";
+import { useState } from "react";
 
+export default function Dishes() {
+    const { id } = useLocalSearchParams();
+    const { addToCart } = useCart();
+    const [count, setCount] = useState(1);
 
+    const prato = pratos.find((p) => p.id === id);
 
-export default function Pratos() {
-    const { addToCart } = useCart()
+    if (!prato) {
+        router.replace("/home");
+        return null;
+    }
+
+    const handleCount = (action: "increase" | "decrease") => {
+        setCount((prev) => Math.max(1, prev + (action === "increase" ? 1 : -1)));
+    };
 
     return (
         <View style={styles.container}>
             <Header />
 
-            <View>
-                <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-                    <View >
-                        <TouchableOpacity style={styles.containerBoxBack} onPress={() => {router.replace("/home")}}>
-                            <MaterialIcons style={{ marginTop: 4 }} size={19} color={colors.light[300]} name="arrow-back-ios"/>
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
+                <View>
+                    <View>
+                        <TouchableOpacity style={styles.containerBoxBack} onPress={() => { router.replace("/home") }}>
+                            <MaterialIcons style={{ marginTop: 4 }} size={19} color={colors.light[300]} name="arrow-back-ios" />
                             <Text style={styles.textBoxBack}>voltar</Text>
                         </TouchableOpacity>
-
                     </View>
 
-                    <View style={{ alignItems: "center"}}>
-                        <Image  source={require("../../assets/pratos-300/salada.png")} />
+                    <View style={{ alignItems: "center" }}>
+                        <Image source={prato.imageLarge} />
                     </View>
 
                     <View style={styles.boxDescriptionDish}>
-                        <Text style={styles.titleDish}>Salada Ravanello</Text>
+                        <Text style={styles.titleDish}>{prato.name}</Text>
+                        <Text style={styles.descriptionDish}>{prato.description}</Text>
 
-                        <Text style={styles.descriptionDish}>Rabanetes, folhas verdes e molho agridoce salpicados com gergelim.</Text>
-                        
-
-                        <FlatList 
-                            data={ingredientes}
+                        <FlatList
+                            data={prato.ingredientes}
                             keyExtractor={(item) => item.id}
                             numColumns={3}
-                            columnWrapperStyle={{ justifyContent: "center", gap: 36, marginBottom: 24}}
+                            columnWrapperStyle={{ justifyContent: "center", gap: 36, marginBottom: 24 }}
                             renderItem={({ item }) => (
                                 <View style={styles.boxIngredients}>
                                     <Text style={styles.nameIngredients}>{item.name}</Text>
@@ -50,32 +58,31 @@ export default function Pratos() {
                             )}
                             scrollEnabled={false}
                         />
-
                     </View>
 
                     <View style={styles.boxOrder}>
                         <View style={styles.boxCount}>
-                            <TouchableOpacity>
-                                <MaterialIcons size={22} color={colors.light[100]} name="remove"/>
-                            </TouchableOpacity>             
-                            
-                            <Text style={styles.textCount}>01</Text>
+                            <TouchableOpacity onPress={() => handleCount("decrease")}>
+                                <MaterialIcons size={22} color={colors.light[100]} name="remove" />
+                            </TouchableOpacity>
 
-                            <TouchableOpacity>
+                            <Text style={styles.textCount}>{count.toString().padStart(2, "0")}</Text>
+
+                            <TouchableOpacity onPress={() => handleCount("increase")}>
                                 <MaterialIcons size={22} color={colors.light[100]} name="add" />
                             </TouchableOpacity>
                         </View>
 
                         <View>
-                            <Button icon="shopping-cart" title="pedir ∙ R$ 25,00" />
+                            <Button
+                                icon="shopping-cart"
+                                title={`pedir ∙ R$ ${(parseFloat(prato.price) * count).toFixed(2)}`}
+                                onPress={() => addToCart(prato, count)}
+                            />
                         </View>
-                        
                     </View>
-
-                </ScrollView>
-            </View>
-            
-            <Footer/>
+                </View>
+            </ScrollView>
         </View>
-    )
+    );
 }

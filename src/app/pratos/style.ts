@@ -71,14 +71,16 @@ export const styles = StyleSheet.create({
     },
 
     boxIngredients: {
-        paddingHorizontal: 8,
+        paddingHorizontal: 12,
         paddingVertical: 4,
         justifyContent: "center",
         alignItems: "center",
         gap: 8,
 
         borderRadius: 5,
-        backgroundColor: colors.dark[1000]
+        backgroundColor: colors.dark[1000],
+        maxWidth: 94,
+        flexWrap: "wrap"
     },
 
     nameIngredients: {
