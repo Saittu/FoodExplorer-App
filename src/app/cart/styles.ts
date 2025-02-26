@@ -2,12 +2,16 @@ import { StyleSheet } from "react-native";
 import { colors } from "@/src/styles/colors";
 
 export const styles = StyleSheet.create({
+    main: {
+        paddingBottom: 80
+    },
+
     container: {
         paddingRight: 90,
         paddingLeft: 35,
     },
 
-    text: {
+    cartText: {
         fontSize: 32,
         fontWeight: "500",
         color: colors.light[300],
@@ -15,14 +19,21 @@ export const styles = StyleSheet.create({
         paddingTop: 56
     },
 
-    text2: {
-        fontSize: 22,
-        fontWeight: "500",
-        color: colors.light[300],
-        lineHeight: 40
+    itemDetails: {
+        gap: 4
     },
 
-    span: {
+    nameDish: {
+        color: colors.light[300],
+        fontSize: 20,
+        fontWeight: 500
+    },
+
+    quantity:{
+        color: colors.light[300]
+    },
+
+    removeText:{
         fontSize: 12,
         color: colors.tints.tomato[400]
     },
@@ -37,7 +48,8 @@ export const styles = StyleSheet.create({
     item: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 15
+        gap: 15,
+        marginBottom: 16
     },
 
     button: {
@@ -46,5 +58,23 @@ export const styles = StyleSheet.create({
         marginRight: 32,
         marginLeft: 140,
         marginTop: 40
+    },
+
+    emptyCartContainer: {
+        borderWidth: 2,
+        borderColor: colors.light[600],
+        borderRadius: 8,
+
+        width: 320,
+        justifyContent: 'center',
+        alignItems: "center",
+        paddingVertical: 70,
+        gap: 15
+    },
+
+    emptyCartText: {
+        color: colors.light[500],
+        fontSize: 16,
+        fontWeight: "500"
     }
 })

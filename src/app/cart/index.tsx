@@ -1,32 +1,62 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, FlatList, ListRenderItem, ScrollView } from "react-native";
 import Header from "@/src/components/header";
 import { Button } from "@/src/components/button";
 import { styles } from "./styles";
+import { useCart } from "@/src/context/carContext";
+import { Pratos } from "@/src/utils/pratos";
+import { MaterialIcons } from "@expo/vector-icons";
+import { colors } from "@/src/styles/colors";
 
 export default function Cart() {
-    return(
-        <View style={styles.main}>
-            <Header/>
+    const { cart, removeFromCart } = useCart();
+
+    const renderItem: ListRenderItem<Pratos> = ({ item }) => (
+        <View style={styles.item}>
+            <Image source={item.imageSmall} />
+            <View style={styles.itemDetails}>
+                <Text style={styles.nameDish}>{item.name}</Text>
+                <Text style={styles.quantity}>Quantidade: {item.count}</Text>
+                <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                    <Text style={styles.removeText}>Remover do carrinho</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+
+    const total = cart.reduce((sum, item) => sum + parseFloat(item.price.replace(',', '.')) * item.count, 0).toFixed(2);
+
+    return (
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.main}>
+            <Header />
 
             <View style={styles.container}>
-                <Text style={styles.text}>Meu Pedido</Text>
+                <Text style={styles.cartText}>Meu Pedido</Text>
 
-                <View style={styles.item}>
-                    <View>
-                        <Image source={require("@/src/assets/pratos-100/salada.png")}/>
+                {cart.length === 0 ? (
+                    <View style={styles.emptyCartContainer}>
+                        <MaterialIcons size={28} color={colors.light[500]} name="restaurant"/>
+                        <Text style={styles.emptyCartText}>Seu carrinho está vazio</Text>
                     </View>
-                    <View>
-                        <Text style={styles.text2}>Salada Radish</Text>
-                        <Text style={styles.span}>Remover dos favoritos</Text>
-                    </View>
-                </View>
+                ):  (
+                    <>
+                        <View>
+                            <FlatList
+                                data={cart}
+                                keyExtractor={(item) => item.id}
+                                scrollEnabled={false}
+                                renderItem={renderItem}
+                            />
 
-                <Text style={styles.price}>Total: R$103,88</Text>
+                            <Text style={styles.price}>Total: R$ {parseFloat(total).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                        </View>
+                        
+                    </>
+                )}
             </View>
             <View style={styles.button}>
-                <Button title="Avançar"/>
+                <Button disabled={cart.length === 0 } title="Avançar" />
             </View>
-            
-        </View>
-    )
+            <View style={{ marginBottom: 80}}></View>
+        </ScrollView>
+    );
 }

@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
         width: "100%",
     },
 
-    textLogo:{
+    textLogo: {
         flexDirection: "row",
         alignItems: "center",
         gap: 8
@@ -34,28 +34,29 @@ export const styles = StyleSheet.create({
     icon: {
         color: colors.light[100],
     },
-
     badgeContainer: {
         position: "absolute",
-        top: -12,
-        right: -8,
-        justifyContent: "center", // Centraliza o conteúdo verticalmente
-        alignItems: "center", // Centraliza o conteúdo horizontalmente
+        top: -10, 
+        right: -15, 
+        justifyContent: "center",
+        alignItems: "center",
+        minWidth: 28, 
+        height: 24,
     },
     span: {
         color: colors.light[100],
         fontSize: 14,
-        fontWeight: "500",
+        fontWeight: "bold",
         textAlign: "center",
         backgroundColor: colors.tints.tomato[100],
         paddingVertical: 3,
-        paddingHorizontal: 8, // Espaço interno suficiente
+        paddingHorizontal: 6, 
         borderRadius: 999,
-        minWidth: 24, // Espaço mínimo para 2 dígitos
-        height: 24, // Altura fixa para o círculo
-        lineHeight: 18, // Ajusta a linha para centralizar o texto verticalmente
+        minWidth: 28, 
+        height: 24,
+        lineHeight: 18, 
+        overflow: "hidden", 
     },
-
     modal: {
         flex: 1
     },
@@ -63,14 +64,11 @@ export const styles = StyleSheet.create({
     modalHeader: {
         width: "100%",
         backgroundColor: colors.dark[700],
-
         flexDirection: "row",
         gap: 16,
-
         paddingTop: 64,
         paddingBottom: 32,
         paddingLeft: 28,
-
         alignItems: "center"
     },
 
@@ -82,28 +80,20 @@ export const styles = StyleSheet.create({
     modalContent: {
         backgroundColor: colors.dark[400],
         flex: 1,
-
         paddingHorizontal: 28,
         paddingTop: 20
     },
 
     containerText: {
         marginTop: 36,
-
         padding: 10,
-
         borderBottomColor: colors.dark[1000],
         borderBottomWidth: 1,
     },
 
     contentText: {
-        
-
         color: colors.light[300],
         fontSize: 24,
         fontWeight: "200"
     },
-
-
-
-})
+});

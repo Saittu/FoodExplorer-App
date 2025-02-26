@@ -32,7 +32,7 @@ export default function Home() {
             <BoxPratos categorias="Entradas" dishes={pratosSecond} onAddToCart={addToCart}/>
             <BoxPratos categorias="Outros" dishes={pratosThird} onAddToCart={addToCart}/>
 
-
+            <View style={{ marginBottom: 80}}></View>
             
         </ScrollView>
 
