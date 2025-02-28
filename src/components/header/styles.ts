@@ -6,11 +6,10 @@ export const styles = StyleSheet.create({
     containerElements: {
         backgroundColor: colors.dark[700],
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "center",
         alignItems: "center",
         paddingTop: Platform.OS === "ios" ? 60 : StatusBar.currentHeight || 0,
-        paddingBottom: 32,
-        paddingHorizontal: 28,
+        paddingBottom: 20,
         width: "100%",
     },
 
@@ -31,69 +30,4 @@ export const styles = StyleSheet.create({
         height: 25
     },
 
-    icon: {
-        color: colors.light[100],
-    },
-    badgeContainer: {
-        position: "absolute",
-        top: -10, 
-        right: -15, 
-        justifyContent: "center",
-        alignItems: "center",
-        minWidth: 28, 
-        height: 24,
-    },
-    span: {
-        color: colors.light[100],
-        fontSize: 14,
-        fontWeight: "bold",
-        textAlign: "center",
-        backgroundColor: colors.tints.tomato[100],
-        paddingVertical: 3,
-        paddingHorizontal: 6, 
-        borderRadius: 999,
-        minWidth: 28, 
-        height: 24,
-        lineHeight: 18, 
-        overflow: "hidden", 
-    },
-    modal: {
-        flex: 1
-    },
-
-    modalHeader: {
-        width: "100%",
-        backgroundColor: colors.dark[700],
-        flexDirection: "row",
-        gap: 16,
-        paddingTop: 64,
-        paddingBottom: 32,
-        paddingLeft: 28,
-        alignItems: "center"
-    },
-
-    headerTitle: {
-        color: colors.light[100],
-        fontSize: 21.16,
-    },
-
-    modalContent: {
-        backgroundColor: colors.dark[400],
-        flex: 1,
-        paddingHorizontal: 28,
-        paddingTop: 20
-    },
-
-    containerText: {
-        marginTop: 36,
-        padding: 10,
-        borderBottomColor: colors.dark[1000],
-        borderBottomWidth: 1,
-    },
-
-    contentText: {
-        color: colors.light[300],
-        fontSize: 24,
-        fontWeight: "200"
-    },
 });

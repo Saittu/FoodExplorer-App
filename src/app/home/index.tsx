@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView, Platform } from "react-native";
 import { styles } from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -7,6 +7,7 @@ import BoxPratos from "@/src/components/boxPratos";
 import { pratos } from "@/src/utils/pratos";
 import { useState } from "react";
 import { useCart } from "@/src/context/carContext";
+import Navigation from "@/src/components/navigation";
 
 export default function Home() {
     const { addToCart } = useCart()
@@ -15,26 +16,31 @@ export default function Home() {
     const pratosSecond = pratos.slice(3, 6)
     const pratosThird = pratos.slice(6, 8)
     return(
-        <ScrollView showsVerticalScrollIndicator={false}>
-            <Header/>
+        <View style={styles.main}>
+            <View>
+                <Header/>
+                <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
 
-            <View style={styles.containerInfo}>
-                <Image style={styles.bannerImage} source={require("@/src/assets/Images/imageBoxInfo.png")}/>
-                <LinearGradient colors={["#091E26", "#00131C"]} style={styles.bannerContainer}>
-                    <View style={styles.infoBox}>
-                        <Text style={styles.title}>Sabores inigualáveis</Text>
-                        <Text style={styles.description}>Sinta o cuidado do preparo com ingredientes selecionados.</Text>
+                    <View style={styles.containerInfo}>
+                        <Image style={styles.bannerImage} source={require("@/src/assets/Images/imageBoxInfo.png")}/>
+                        <LinearGradient colors={["#091E26", "#00131C"]} style={styles.bannerContainer}>
+                            <View style={styles.infoBox}>
+                                <Text style={styles.title}>Sabores inigualáveis</Text>
+                                <Text style={styles.description}>Sinta o cuidado do preparo com ingredientes selecionados.</Text>
+                            </View>
+                        </LinearGradient>
                     </View>
-                </LinearGradient>
-            </View>
-            
-            <BoxPratos categorias="Refeições" dishes={pratosFirst} onAddToCart={addToCart}/>
-            <BoxPratos categorias="Entradas" dishes={pratosSecond} onAddToCart={addToCart}/>
-            <BoxPratos categorias="Outros" dishes={pratosThird} onAddToCart={addToCart}/>
+                    
+                    <BoxPratos categorias="Refeições" dishes={pratosFirst} onAddToCart={addToCart}/>
+                    <BoxPratos categorias="Entradas" dishes={pratosSecond} onAddToCart={addToCart}/>
+                    <BoxPratos categorias="Outros" dishes={pratosThird} onAddToCart={addToCart}/>
 
-            <View style={{ marginBottom: 80}}></View>
-            
-        </ScrollView>
+                    <View style={{ paddingTop: Platform.OS === "ios" ? 220 : 160}}></View>
+                </ScrollView>
+            </View>
+            <Navigation/>
+        </View>
+
 
     )
 }

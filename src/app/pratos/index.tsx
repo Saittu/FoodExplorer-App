@@ -8,6 +8,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import { useCart } from "@/src/context/carContext";
 import { Pratos, pratos } from "@/src/utils/pratos";
 import { useState } from "react";
+import Navigation from "@/src/components/navigation";
 
 export default function Dishes() {
     const { id } = useLocalSearchParams();
@@ -29,7 +30,7 @@ export default function Dishes() {
         <View style={styles.container}>
             <Header />
 
-            <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
+            <View style={styles.content}>
                 <View>
                     <View>
                         <TouchableOpacity style={styles.containerBoxBack} onPress={() => { router.replace("/home") }}>
@@ -82,7 +83,8 @@ export default function Dishes() {
                         </View>
                     </View>
                 </View>
-            </ScrollView>
+            </View>
+            <Navigation/>
         </View>
     );
 }

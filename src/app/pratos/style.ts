@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     },
 
     content: {
+        flexGrow: 1,
         paddingTop: 16,
         paddingHorizontal: 36,
 

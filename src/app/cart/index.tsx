@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, FlatList, ListRenderItem, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, FlatList, ListRenderItem, ScrollView, Platform } from "react-native";
 import Header from "@/src/components/header";
 import { Button } from "@/src/components/button";
 import { styles } from "./styles";
@@ -6,6 +6,8 @@ import { useCart } from "@/src/context/carContext";
 import { Pratos } from "@/src/utils/pratos";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/src/styles/colors";
+import { router } from "expo-router";
+import Navigation from "@/src/components/navigation";
 
 export default function Cart() {
     const { cart, removeFromCart } = useCart();
@@ -26,37 +28,41 @@ export default function Cart() {
     const total = cart.reduce((sum, item) => sum + parseFloat(item.price.replace(',', '.')) * item.count, 0).toFixed(2);
 
     return (
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.main}>
+        <View style={styles.page}>
             <Header />
+            <ScrollView showsVerticalScrollIndicator={false} style={styles.main}>
 
-            <View style={styles.container}>
-                <Text style={styles.cartText}>Meu Pedido</Text>
+                <View style={styles.container}>
+                    <Text style={styles.cartText}>Meu Pedido</Text>
 
-                {cart.length === 0 ? (
-                    <View style={styles.emptyCartContainer}>
-                        <MaterialIcons size={28} color={colors.light[500]} name="restaurant"/>
-                        <Text style={styles.emptyCartText}>Seu carrinho está vazio</Text>
-                    </View>
-                ):  (
-                    <>
-                        <View>
-                            <FlatList
-                                data={cart}
-                                keyExtractor={(item) => item.id}
-                                scrollEnabled={false}
-                                renderItem={renderItem}
-                            />
-
-                            <Text style={styles.price}>Total: R$ {parseFloat(total).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                    {cart.length === 0 ? (
+                        <View style={styles.emptyCartContainer}>
+                            <MaterialIcons size={28} color={colors.light[500]} name="restaurant"/>
+                            <Text style={styles.emptyCartText}>Seu carrinho está vazio</Text>
                         </View>
-                        
-                    </>
-                )}
-            </View>
-            <View style={styles.button}>
-                <Button disabled={cart.length === 0 } title="Avançar" />
-            </View>
-            <View style={{ marginBottom: 80}}></View>
-        </ScrollView>
+                    ):  (
+                        <>
+                            <View>
+                                <FlatList
+                                    data={cart}
+                                    keyExtractor={(item) => item.id}
+                                    scrollEnabled={false}
+                                    renderItem={renderItem}
+                                />
+
+                                <Text style={styles.price}>Total: R$ {parseFloat(total).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</Text>
+                            </View>
+                            
+                        </>
+                    )}
+                </View>
+                <View style={styles.button}>
+                    <Button disabled={cart.length === 0 } title="Avançar" onPress={() => router.navigate("/payment") } />
+                </View>
+                <View style={{ paddingTop: Platform.OS === "ios" ? 150 : 130}}></View>
+            </ScrollView>
+            <Navigation/>
+        </View>
+
     );
 }

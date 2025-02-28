@@ -2,6 +2,16 @@ import { StyleSheet } from "react-native";
 import { colors } from "@/src/styles/colors";
 
 export const styles = StyleSheet.create({
+    main: {
+        flex: 1,
+    },
+
+
+    container: {
+        flexGrow: 1,
+
+    },
+
     containerInfo: {
         marginTop: 44 ,
         paddingLeft: 30,
@@ -44,6 +54,7 @@ export const styles = StyleSheet.create({
         lineHeight: 17,
         paddingLeft: 10
     },
+    
 
     
     
