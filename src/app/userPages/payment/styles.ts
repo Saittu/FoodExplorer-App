@@ -90,7 +90,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: colors.light[100],
         borderRadius: 5,
-
+        color: colors.light[500]
 
     },
 
@@ -106,6 +106,18 @@ export const styles = StyleSheet.create({
 
     dataCreditCard: {
         gap: 8
+    },
+
+    boxValidation: {
+        marginTop: 32,
+        paddingVertical: 119,
+        paddingHorizontal: 32,
+        alignItems: "center",
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: colors.light[600],
+
+        gap: 24
     }
 
 });

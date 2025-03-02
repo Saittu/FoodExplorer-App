@@ -1,29 +1,39 @@
 import { View, Text, Image, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./style";
-import Header from "@/src/components/header";
-import { Button } from "@/src/components/button";
+import Header from "@/src/components/componentsUser/header";
+import { Button } from "@/src/components/componentsUser/button";
 import { colors } from "@/src/styles/colors";
 import { router, useLocalSearchParams } from "expo-router";
 import { useCart } from "@/src/context/carContext";
 import { Pratos, pratos } from "@/src/utils/pratos";
 import { useState } from "react";
-import Navigation from "@/src/components/navigation";
+import Navigation from "@/src/components/componentsUser/navigation";
 
 export default function Dishes() {
-    const { id } = useLocalSearchParams();
+    const { from, id } = useLocalSearchParams()
     const { addToCart } = useCart();
     const [count, setCount] = useState(1);
 
-    const prato = pratos.find((p) => p.id === id);
+    const prato = pratos.find((p) => p.id === id)
 
     if (!prato) {
-        router.replace("/home");
-        return null;
+        router.replace("/home")
+        return null
     }
 
     const handleCount = (action: "increase" | "decrease") => {
-        setCount((prev) => Math.max(1, prev + (action === "increase" ? 1 : -1)));
+        setCount((prev) => Math.max(1, prev + (action === "increase" ? 1 : -1)))
+    };
+
+    const goBack = () => {
+        if (from === "home") {
+            router.replace("/home");
+        } else if (from === "favorites") {
+            router.replace("/favorites")
+        } else {
+            router.replace("/home")
+        }
     };
 
     return (

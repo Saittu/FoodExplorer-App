@@ -21,7 +21,7 @@ export default function Navigation() {
                     </Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => { router.navigate("/favorites") }}>
                 <MaterialIcons size={24} style={styles.icon} name="favorite-border"/>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { router.navigate("/requested") }}>

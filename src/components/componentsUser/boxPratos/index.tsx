@@ -6,15 +6,18 @@ import { type Pratos } from "@/src/utils/pratos";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { colors } from "@/src/styles/colors";
+import { useFavorite } from "@/src/storage/useFavorite";
 
 type Props = Pratos & {
     categorias: string
     dishes: Pratos[]
     onAddToCart: (prato: Pratos, count: number) => void
+    onToggleFavorite: (id: string) => void
 }
 
-export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) { 
-    const [favorite, setFavorite] = useState<Record<string,boolean>>({})   
+export default function BoxPratos({ categorias, dishes, onAddToCart, onToggleFavorite }: Props) { 
+    const { favorites, toggleFavorite } = useFavorite();
+    
     const [countMap, setCountMap] = useState<Record<string, number>>(
         dishes.reduce((acc, dish) => {
             acc[dish.id] = dish.count || 1;
@@ -35,18 +38,6 @@ export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) {
         }))
     }
 
-    function toggleFavorite(id: string) {
-        setFavorite((prev) => ({
-            ...prev,
-            [id]: !prev[id]
-        }))
-
-        Animated.sequence([
-            Animated.timing(scaleValues[id], { toValue: 1.3, duration: 150, useNativeDriver: true }), 
-            Animated.timing(scaleValues[id], { toValue: 1, duration: 150, useNativeDriver: true }) 
-        ]).start();
-    }
-
     return (
         <View>
             <Text style={styles.categoria}>{categorias}</Text>
@@ -62,9 +53,9 @@ export default function BoxPratos({ categorias, dishes, onAddToCart }: Props) {
                             <TouchableOpacity style={styles.iconHeart} onPress={() => toggleFavorite(item.id)}>
                                 <Animated.View style={{ transform: [{ scale: scaleValues[item.id]}]}}>
                                     <MaterialIcons 
-                                        size={24} name={favorite[item.id] ? "favorite" : "favorite-border"} 
-                                        color={favorite[item.id] ? colors.tints.tomato[300] : colors.light[300]}
-                                        />
+                                        size={24} name={favorites[item.id] ? "favorite" : "favorite-border"} 
+                                        color={favorites[item.id] ? colors.tints.tomato[300] : colors.light[300]}
+                                    />
                                 </Animated.View>
                             </TouchableOpacity>
             

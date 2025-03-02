@@ -2,12 +2,12 @@ import { View, Text, Image, ScrollView, Platform } from "react-native";
 import { styles } from "./styles";
 import { LinearGradient } from "expo-linear-gradient";
 
-import Header from "@/src/components/header";
-import BoxPratos from "@/src/components/boxPratos";
+import Header from "@/src/components/componentsUser/header";
+import BoxPratos from "@/src/components/componentsUser/boxPratos";
 import { pratos } from "@/src/utils/pratos";
 import { useState } from "react";
 import { useCart } from "@/src/context/carContext";
-import Navigation from "@/src/components/navigation";
+import Navigation from "@/src/components/componentsUser/navigation";
 
 export default function Home() {
     const { addToCart } = useCart()

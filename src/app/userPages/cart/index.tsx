@@ -1,13 +1,13 @@
 import { View, Text, Image, TouchableOpacity, FlatList, ListRenderItem, ScrollView, Platform } from "react-native";
-import Header from "@/src/components/header";
-import { Button } from "@/src/components/button";
+import Header from "@/src/components/componentsUser/header";
+import { Button } from "@/src/components/componentsUser/button";
 import { styles } from "./styles";
 import { useCart } from "@/src/context/carContext";
 import { Pratos } from "@/src/utils/pratos";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/src/styles/colors";
 import { router } from "expo-router";
-import Navigation from "@/src/components/navigation";
+import Navigation from "@/src/components/componentsUser/navigation";
 
 export default function Cart() {
     const { cart, removeFromCart } = useCart();

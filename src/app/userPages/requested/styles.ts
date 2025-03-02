@@ -32,7 +32,7 @@ export const styles = StyleSheet.create({
     requestedInfo: {
         flexDirection: "row",
         alignItems: "center",
-        gap: Platform.OS === "ios" ? 23 : 31,
+        gap: Platform.OS === "ios" ? 22 : 34,
     },
 
     requestedId: {
