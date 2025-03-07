@@ -4,29 +4,23 @@ import { styles } from "./styles";
 import { router } from "expo-router";
 import { useCart } from "@/src/context/carContext";
 
-export default function Navigation() {
+export default function NavigationAdmin() {
     const { cartCount } = useCart();
 
     return (
         <View style={styles.navigationContainer}>
-            <TouchableOpacity onPress={() => { router.replace("/userPages/home") }}>
+            <TouchableOpacity onPress={() => { router.replace("/Admin/home") }}>
                 <MaterialIcons size={24} style={styles.icon} name="home"/>
             </TouchableOpacity>
             
-            <TouchableOpacity onPress={() => { router.navigate("/userPages/cart") }}>
-                <MaterialIcons size={24} style={styles.icon} name="shopping-cart" />
-                <View style={styles.badgeContainer}>
-                    <Text style={styles.span}>
-                        {cartCount}
-                    </Text>
-                </View>
+            <TouchableOpacity onPress={() => {router.replace("/Admin/newDishes")} } >
+                <MaterialIcons size={24} style={styles.icon} name="add" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { router.navigate("/userPages/favorites") }}>
-                <MaterialIcons size={24} style={styles.icon} name="favorite-border"/>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { router.navigate("/userPages/requested") }}>
+
+            <TouchableOpacity >
                 <MaterialIcons size={24} style={styles.icon} name="shopping-basket" />
             </TouchableOpacity>
+
             <TouchableOpacity onPress={() => { router.replace("/Auth/signIn") }}>
                 <MaterialIcons size={24} style={styles.icon} name="logout"/>
             </TouchableOpacity>

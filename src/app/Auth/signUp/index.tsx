@@ -1,7 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { styles } from "./style";
-import { Input } from "@/src/components/componentsUser/input";
-import { Button } from "@/src/components/componentsUser/button";
+import { Input } from "@/src/components/globais/input";
+import { Button } from "@/src/components/globais/button";
 import { router } from "expo-router";
 
 
@@ -17,13 +17,13 @@ export default function signUp() {
             <View style={styles.form}>
                 <Input label={"Seu nome"} placeholder="Exemplo: Maria da Silva" autoCorrect={false}  />
 
-                <Input label={"Email"} placeholder="Exemplo: exemplo@exemplo.com.br" autoCorrect={false} autoCapitalize="none" />
+                <Input label={"Email"} placeholder="Exemplo: exemplo@exemplo.com" autoCorrect={false} autoCapitalize="none" />
 
                 <Input label={"Senha"} placeholder="No mínimo 6 caracteres" autoCorrect={false} secureTextEntry/>
 
-                <Button title="Cadastrar"/>
+                <Button title="Cadastrar" onPress={() => router.navigate("/Admin/home")}/>
 
-                <TouchableOpacity onPress={() => router.replace("/signIn")}>
+                <TouchableOpacity onPress={() => router.replace("/Auth/signIn")}>
                     <Text style={styles.textRoute}>Já tenho uma conta</Text>
                 </TouchableOpacity>
                 

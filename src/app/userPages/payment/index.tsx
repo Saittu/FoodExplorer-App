@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { colors } from "@/src/styles/colors";
 import Header from "@/src/components/componentsUser/header";
-import { Button } from "@/src/components/componentsUser/button";
+import { Button } from "@/src/components/globais/button";
 import Navigation from "@/src/components/componentsUser/navigation";
 import { usePedidosStore } from "@/src/storage/usePedidosStore"; 
 import { useCart } from "@/src/context/carContext"; 

@@ -23,9 +23,9 @@ export default function Layout(){
           setIsAuthenticated(!!userToken);
   
           if (userToken) {
-            router.replace("/home");
+            router.replace("/userPages/home");
           } else {
-            router.replace("/signIn");
+            router.replace("/Auth/signIn");
           }
         }, 1500);
       }

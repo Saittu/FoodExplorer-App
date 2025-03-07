@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity, FlatList, ScrollView } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
-import { styles } from "./style";
+import { styles } from "./styles";
 import Header from "@/src/components/componentsUser/header";
 import { Button } from "@/src/components/globais/button";
 import { colors } from "@/src/styles/colors";
@@ -9,8 +9,10 @@ import { useCart } from "@/src/context/carContext";
 import { Pratos, pratos } from "@/src/utils/pratos";
 import { useState } from "react";
 import Navigation from "@/src/components/componentsUser/navigation";
+import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
+import HeaderAdmin from "@/src/components/componentAdmin/headerAdmin";
 
-export default function Dishes() {
+export default function DishesAdminDetails() {
     const { from, id } = useLocalSearchParams()
     const { addToCart } = useCart();
     const [count, setCount] = useState(1);
@@ -22,28 +24,14 @@ export default function Dishes() {
         return null
     }
 
-    const handleCount = (action: "increase" | "decrease") => {
-        setCount((prev) => Math.max(1, prev + (action === "increase" ? 1 : -1)))
-    };
-
-    const goBack = () => {
-        if (from === "home") {
-            router.replace("/userPages/home");
-        } else if (from === "favorites") {
-            router.replace("/userPages/favorites")
-        } else {
-            router.replace("/userPages/home")
-        }
-    };
-
     return (
         <View style={styles.container}>
-            <Header />
+            <HeaderAdmin />
 
             <View style={styles.content}>
                 <View>
                     <View>
-                        <TouchableOpacity style={styles.containerBoxBack} onPress={() => { router.replace("/userPages/home") }}>
+                        <TouchableOpacity style={styles.containerBoxBack} onPress={() => { router.replace("/Admin/home") }}>
                             <MaterialIcons style={{ marginTop: 4 }} size={19} color={colors.light[300]} name="arrow-back-ios" />
                             <Text style={styles.textBoxBack}>voltar</Text>
                         </TouchableOpacity>
@@ -72,29 +60,19 @@ export default function Dishes() {
                     </View>
 
                     <View style={styles.boxOrder}>
-                        <View style={styles.boxCount}>
-                            <TouchableOpacity onPress={() => handleCount("decrease")}>
-                                <MaterialIcons size={22} color={colors.light[100]} name="remove" />
-                            </TouchableOpacity>
-
-                            <Text style={styles.textCount}>{count.toString().padStart(2, "0")}</Text>
-
-                            <TouchableOpacity onPress={() => handleCount("increase")}>
-                                <MaterialIcons size={22} color={colors.light[100]} name="add" />
-                            </TouchableOpacity>
-                        </View>
 
                         <View>
                             <Button
-                                icon="shopping-cart"
-                                title={`pedir ∙ R$ ${(parseFloat(prato.price) * count).toFixed(2)}`}
+                                title="Editar Prato"
                                 onPress={() => addToCart(prato, count)}
                             />
                         </View>
+
                     </View>
+
                 </View>
             </View>
-            <Navigation/>
+            <NavigationAdmin/>
         </View>
     );
 }

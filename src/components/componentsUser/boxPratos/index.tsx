@@ -1,7 +1,7 @@
 import { View, Text, FlatList, TouchableOpacity, Image, Animated } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
-import { Button } from "../button";
+import { Button } from "../../globais/button";
 import { type Pratos } from "@/src/utils/pratos";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useRef, useState } from "react";
@@ -61,7 +61,7 @@ export default function BoxPratos({ categorias, dishes, onAddToCart, onToggleFav
             
                             <Image source={item.imageSmall} />
             
-                            <TouchableOpacity style={styles.refeicaoText} onPress={() => {router.push(`/pratos?id=${item.id}`)}}>
+                            <TouchableOpacity style={styles.refeicaoText} onPress={() => {router.push(`/userPages/pratos?id=${item.id}`)}}>
                                 <Text style={styles.title}>{item.name}</Text>
                                 <MaterialIcons style={styles.icon} size={14} name="arrow-forward"/>
                             </TouchableOpacity>

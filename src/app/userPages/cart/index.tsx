@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity, FlatList, ListRenderItem, ScrollView, Platform } from "react-native";
 import Header from "@/src/components/componentsUser/header";
-import { Button } from "@/src/components/componentsUser/button";
+import { Button } from "@/src/components/globais/button";
 import { styles } from "./styles";
 import { useCart } from "@/src/context/carContext";
 import { Pratos } from "@/src/utils/pratos";
@@ -57,7 +57,7 @@ export default function Cart() {
                     )}
                 </View>
                 <View style={styles.button}>
-                    <Button disabled={cart.length === 0 } title="Avançar" onPress={() => router.navigate("/payment") } />
+                    <Button disabled={cart.length === 0 } title="Avançar" onPress={() => router.navigate("/userPages/payment") } />
                 </View>
                 <View style={{ paddingTop: Platform.OS === "ios" ? 150 : 130}}></View>
             </ScrollView>

@@ -33,7 +33,7 @@ export default function Favorites() {
                                 <View style={styles.item}>
                                     <Image source={item.imageSmall} />
                                     <View style={styles.itemInfos}>
-                                        <TouchableOpacity style={styles.itemDetails} onPress={() => router.navigate(`/pratos?id=${item.id}`)}>
+                                        <TouchableOpacity style={styles.itemDetails} onPress={() => router.navigate(`/userPages/pratos?id=${item.id}`)}>
                                             <Text style={styles.name}>{item.name}</Text>
                                             <MaterialIcons color={colors.light[300]} name="arrow-forward" size={24} />
                                         </TouchableOpacity>
