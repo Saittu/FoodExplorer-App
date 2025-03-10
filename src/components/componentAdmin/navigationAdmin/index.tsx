@@ -17,7 +17,7 @@ export default function NavigationAdmin() {
                 <MaterialIcons size={24} style={styles.icon} name="add" />
             </TouchableOpacity>
 
-            <TouchableOpacity >
+            <TouchableOpacity onPress={() => {router.replace("/Admin/requested")}}>
                 <MaterialIcons size={24} style={styles.icon} name="shopping-basket" />
             </TouchableOpacity>
 

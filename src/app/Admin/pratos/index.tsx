@@ -64,7 +64,7 @@ export default function DishesAdminDetails() {
                         <View>
                             <Button
                                 title="Editar Prato"
-                                onPress={() => addToCart(prato, count)}
+                                onPress={() => {router.navigate("/Admin/updatedDishes")}}
                             />
                         </View>
 

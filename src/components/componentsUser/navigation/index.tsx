@@ -13,7 +13,7 @@ export default function Navigation() {
                 <MaterialIcons size={24} style={styles.icon} name="home"/>
             </TouchableOpacity>
             
-            <TouchableOpacity onPress={() => { router.navigate("/userPages/cart") }}>
+            <TouchableOpacity onPress={() => { router.replace("/userPages/cart") }}>
                 <MaterialIcons size={24} style={styles.icon} name="shopping-cart" />
                 <View style={styles.badgeContainer}>
                     <Text style={styles.span}>
@@ -21,10 +21,10 @@ export default function Navigation() {
                     </Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { router.navigate("/userPages/favorites") }}>
+            <TouchableOpacity onPress={() => { router.replace("/userPages/favorites") }}>
                 <MaterialIcons size={24} style={styles.icon} name="favorite-border"/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => { router.navigate("/userPages/requested") }}>
+            <TouchableOpacity onPress={() => { router.replace("/userPages/requested") }}>
                 <MaterialIcons size={24} style={styles.icon} name="shopping-basket" />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { router.replace("/Auth/signIn") }}>

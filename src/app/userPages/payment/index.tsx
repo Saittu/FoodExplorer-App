@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, Pressable, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
@@ -37,6 +37,10 @@ export default function Payment() {
       }, 2000);
     }, 2000);
   }
+
+  useEffect(() => {
+    setStatusPagamento("cartao");
+  }, []);
 
   return (
     <View style={styles.main}>

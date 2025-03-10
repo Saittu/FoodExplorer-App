@@ -8,7 +8,7 @@ export interface Pratos {
     imageLarge: any;
     description: string;
     ingredientes: { id: string; name: string }[];
-    addToCart?: (prato: Pratos, count: number) => void; // Propriedade opcional, talvez?
+    addToCart?: (prato: Pratos, count: number) => void; 
 }
 
 export type Ingredientes = {
