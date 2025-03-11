@@ -71,6 +71,47 @@ export const styles = StyleSheet.create({
 
     listItemText: {
         color: colors.light[400]
+    },
+
+    inputPickerBox: {
+        backgroundColor: colors.dark[900],
+        borderRadius: 5,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: 16
+    },
+
+    textPickerIos: {
+        color: colors.light[400]
+    },
+
+    modalOverlay: {
+        flex: 1,
+        justifyContent: "flex-end",
+        backgroundColor: "rgba(0,0,0,0.5)",
+    },
+
+    modalContent: {
+        backgroundColor: colors.light[200],
+        paddingVertical: 10,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+      },
+    
+    closeButton: {
+        alignItems: "center",
+        paddingVertical: 10
+    },
+
+    closeText: {
+        fontSize: 16,
+        color: colors.tints.cake[100]
+    },
+
+    androidPicker: {
+        color: colors.light[400],
+        backgroundColor: colors.dark[900]
     }
 
 

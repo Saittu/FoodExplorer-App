@@ -104,12 +104,6 @@ export const styles = StyleSheet.create({
             alignItems: "center"
         },
     
-        chipContainer:{
-            flexWrap: "wrap",
-            gap: 8,
-            
-        },
-    
         chip: {
             flexDirection: "row",
             alignItems: "center",
@@ -149,5 +143,46 @@ export const styles = StyleSheet.create({
             flexDirection: "row",
             color: colors.light[100],
             fontSize: 16,
+        },
+
+        textPickerIos: {
+            color: colors.light[400]
+        },
+    
+        modalOverlay: {
+            flex: 1,
+            justifyContent: "flex-end",
+            backgroundColor: "rgba(0,0,0,0.5)",
+        },
+    
+        modalContent: {
+            backgroundColor: colors.light[200],
+            paddingVertical: 10,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+          },
+        
+        closeButton: {
+            alignItems: "center",
+            paddingVertical: 10
+        },
+    
+        closeText: {
+            fontSize: 16,
+            color: colors.tints.cake[100]
+        },
+    
+        androidPicker: {
+            color: colors.light[400],
+            backgroundColor: colors.dark[900]
+        },
+    
+        inputPickerBox: {
+            backgroundColor: colors.dark[900],
+            borderRadius: 5,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: 16
         },
 })

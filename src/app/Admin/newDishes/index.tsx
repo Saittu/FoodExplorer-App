@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TouchableOpacity, TextInput, ScrollView, Platform, FlatList } from "react-native";
+import { View, Text, Pressable, TouchableOpacity, TextInput, ScrollView, Platform, FlatList, Modal } from "react-native";
 import { styles } from "./styles"
 import HeaderAdmin from "@/src/components/componentAdmin/headerAdmin";
 import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
@@ -7,18 +7,14 @@ import DropDownPicker from "react-native-dropdown-picker"
 import { colors } from "@/src/styles/colors";
 import { useState } from "react";
 import { router } from "expo-router";
+import { Picker } from "@react-native-picker/picker";
 
 
 export default function updatedDishes() {
     const [ingredient, setIngredient] = useState("")
     const [ingredients, setIngredients] = useState<string[]>([])
-    const [open, setOpen] = useState(false)
-    const [valorSelecionado, setValorSelecionado] = useState(null)
-    const [item, setItems] = useState([
-        {label: "Refeições", value: "Refeições"},
-        {label: "Entradas", value: "Entradas"},
-        {label: "Outros", value: "Outros"}
-    ])
+    const [selectedValue, setSelectedValue] = useState("");
+    const [modalVisible, setModalVisible] = useState(false);
 
     function addIngredient() {
         if (ingredient.trim() !== "" && !ingredients.includes(ingredient)) {
@@ -58,22 +54,57 @@ export default function updatedDishes() {
 
                     <View style={{ gap: 8}}>
                         <Text style={styles.allTextLabel}>Categoria</Text>
-                        <DropDownPicker
-                            open={open}
-                            value={valorSelecionado}
-                            items={item}
-                            setOpen={setOpen}
-                            setValue={setValorSelecionado}
-                            setItems={setItems}
-                            placeholder="Selecione uma categoria"
-                            listMode="SCROLLVIEW"
+                        {Platform.OS === "ios" ? (
+                            <>
+                            <TouchableOpacity style={styles.inputPickerBox} onPress={() => setModalVisible(true)}>
+                                <Text style={styles.textPickerIos}>
+                                {selectedValue ? selectedValue : "Selecione uma opção"}
+                                </Text>
+                                <MaterialIcons name="arrow-drop-down" size={24} color={colors.light[400]}/>
+                            </TouchableOpacity>
 
-                            style={{ backgroundColor: colors.dark[900]}}
-                            dropDownContainerStyle={{ backgroundColor: colors.dark[900]}}
-                            textStyle={styles.textDropDown}
-                            ArrowUpIconComponent={() => <MaterialIcons name="arrow-upward" size={16} color={colors.light[100]}/>}
-                            ArrowDownIconComponent={() => <MaterialIcons name="arrow-downward" size={16} color={colors.light[100]}/>}
-                        />
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={modalVisible}
+                                onRequestClose={() => setModalVisible(false)}
+                            >
+                                
+                             <View style={styles.modalOverlay}>
+                                <View style={styles.modalContent}>
+                                    <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
+                                    <Text style={styles.closeText}>Close</Text>
+                                    </TouchableOpacity>
+
+                                    <Picker 
+                                    selectedValue={selectedValue}
+                                    onValueChange={(itemValue) => {
+                                        setSelectedValue(itemValue)
+                                        setModalVisible(false)
+                                    }}
+                                    >
+                                        <Picker.Item color={colors.dark[700]} label="Refeições" value="Refeições" />
+                                        <Picker.Item color={colors.dark[700]} label="Sobremesas" value="Sobremesas" />
+                                        <Picker.Item color={colors.dark[700]}  label="Bebidas" value="Bebidas" />
+                                    </Picker>
+                                </View>
+                            </View>
+
+                            </Modal>
+                            </>
+                        ) : (
+                            <Picker 
+                            style={styles.androidPicker}
+                            dropdownIconColor={colors.light[400]}
+                            selectedValue={selectedValue}
+                            onValueChange={(itemValue) => setSelectedValue(itemValue)}
+                            >
+                                <Picker.Item label="Selecione uma opção" value="" />
+                                <Picker.Item label="Refeições" value="Refeições" />
+                                <Picker.Item label="Sobremesas" value="Sobremesas" />
+                                <Picker.Item label="Bebidas" value="Bebidas" />
+                            </Picker>
+                        )}
                     </View>
 
                     <View style={{ gap: 8}}>
