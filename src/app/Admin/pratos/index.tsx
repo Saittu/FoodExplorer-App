@@ -1,21 +1,15 @@
-import { View, Text, Image, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
-import Header from "@/src/components/componentsUser/header";
 import { Button } from "@/src/components/globais/button";
 import { colors } from "@/src/styles/colors";
 import { router, useLocalSearchParams } from "expo-router";
-import { useCart } from "@/src/context/carContext";
-import { Pratos, pratos } from "@/src/utils/pratos";
-import { useState } from "react";
-import Navigation from "@/src/components/componentsUser/navigation";
+import { pratos } from "@/src/utils/pratos";
 import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
 import HeaderAdmin from "@/src/components/componentAdmin/headerAdmin";
 
 export default function DishesAdminDetails() {
     const { from, id } = useLocalSearchParams()
-    const { addToCart } = useCart();
-    const [count, setCount] = useState(1);
 
     const prato = pratos.find((p) => p.id === id)
 
@@ -64,7 +58,7 @@ export default function DishesAdminDetails() {
                         <View>
                             <Button
                                 title="Editar Prato"
-                                onPress={() => {router.navigate("/Admin/updatedDishes")}}
+                                onPress={() => {router.navigate(`/Admin/updatedDishes?id=${prato.id}`)}}
                             />
                         </View>
 

@@ -28,7 +28,7 @@ export default function DishesAdmin({ categorias, dishes, onAddToCart, onToggleF
                 renderItem={({ item }) => (
                     <View style={styles.containerPratos}>
                         <View style={styles.content}>
-                            <TouchableOpacity style={styles.iconEdit} onPress={() => {router.navigate("/Admin/updatedDishes")}}>
+                            <TouchableOpacity style={styles.iconEdit} onPress={() => {router.navigate(`/Admin/updatedDishes?id=${item.id}`)}}>
                                     <MaterialIcons 
                                         size={30} name="edit" 
                                         color={colors.light[300]}

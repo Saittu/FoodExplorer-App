@@ -5,16 +5,25 @@ import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
 import { MaterialIcons } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker"
 import { colors } from "@/src/styles/colors";
-import { useState } from "react";
-import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
+import { pratos } from "@/src/utils/pratos";
 
 
 export default function updatedDishes() {
-    const [ingredient, setIngredient] = useState("")
     const [ingredients, setIngredients] = useState<string[]>([])
     const [selectedValue, setSelectedValue] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
+    
+    const { id } = useLocalSearchParams(); 
+    const prato = pratos.find((p) => p.id === id)
+    
+    const [name, setName] = useState(prato?.name || "");
+    const [description, setDescription] = useState(prato?.description || "");
+    const [price, setPrice] = useState(prato?.price || "");
+    const [ingredientes, setIngredientes] = useState(prato?.ingredientes || []);
+    const [ingredient, setIngredient] = useState("")
 
     function addIngredient() {
         if (ingredient.trim() !== "" && !ingredients.includes(ingredient)) {
@@ -25,6 +34,20 @@ export default function updatedDishes() {
 
     function removeIngredient(item: string) {
         setIngredients(ingredients.filter((ing) => ing !== item))
+    }
+
+
+    function salvarAlteracoes() {
+        const index = pratos.findIndex((p) => p.id === id);
+        if (index !== -1) {
+            pratos[index] = {
+                ...pratos[index],
+                name,
+                description,
+                price,
+            };
+        }
+        router.replace("/Admin/home"); 
     }
 
     return (
@@ -50,7 +73,7 @@ export default function updatedDishes() {
 
                     <View style={{ gap: 8}}>
                         <Text style={styles.allTextLabel}>Nome</Text>
-                        <TextInput style={styles.inputstyle} placeholderTextColor={colors.light[500]} placeholder="Salada César"/>
+                        <TextInput style={styles.inputstyle} placeholderTextColor={colors.light[500]} value={name} onChangeText={setName} />
                     </View>
 
                     <View style={{ gap: 8}}>
@@ -139,7 +162,7 @@ export default function updatedDishes() {
 
                     <View style={{ gap: 8}}>
                         <Text style={styles.allTextLabel}>Preço</Text>
-                        <TextInput style={styles.inputstyle} placeholderTextColor={colors.light[500]} placeholder="R$ 40,00" />
+                        <TextInput style={styles.inputstyle} placeholderTextColor={colors.light[500]} value={price} onChangeText={setPrice} />
                     </View>
 
                     <View style={{ gap: 8}}>
@@ -149,7 +172,8 @@ export default function updatedDishes() {
                             editable
                             multiline
                             placeholderTextColor={colors.light[500]}
-                            placeholder="A Salada César é uma opção refrescante para o verão."
+                            value={description}
+                            onChangeText={setDescription}
                             numberOfLines={15}
                             maxLength={200}
                             style={[styles.textArea, {height: 170, textAlignVertical: "top"}]}
@@ -163,7 +187,7 @@ export default function updatedDishes() {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={[styles.button, {backgroundColor: colors.tints.tomato[400]}]}>
-                            <Text style={{ fontWeight: "500", color: colors.light[100]}}>Salvar alterações</Text>
+                            <Text style={{ fontWeight: "500", color: colors.light[100]}} onPress={salvarAlteracoes}>Salvar alterações</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

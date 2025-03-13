@@ -40,7 +40,7 @@ export default function signIn() {
     return (
         <View style={styles.container}>
             <View style={styles.logo}>
-                <Image source={require("@/src/assets/logo.png")}/>
+                <Image  source={require("@/src/assets/logo.png")}/>
                 
                 <Text style={styles.textLogo}>Food Explorer</Text>  
             </View>
