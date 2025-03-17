@@ -32,9 +32,9 @@ export default function Home() {
                         </LinearGradient>
                     </View>
                     
-                    <DishesAdmin categorias="Refeições" dishes={pratosFirst} onAddToCart={addToCart}/>
-                    <DishesAdmin categorias="Entradas" dishes={pratosSecond} onAddToCart={addToCart}/>
-                    <DishesAdmin categorias="Outros" dishes={pratosThird} onAddToCart={addToCart}/>
+                    <DishesAdmin categorias="Refeições" dishes={pratosFirst}/>
+                    <DishesAdmin categorias="Entradas" dishes={pratosSecond}/>
+                    <DishesAdmin categorias="Outros" dishes={pratosThird} />
 
                     <View style={{ paddingTop: Platform.OS === "ios" ? 220 : 160}}></View>
                 </ScrollView>

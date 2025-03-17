@@ -18,23 +18,31 @@ export default function signIn() {
             return
         }
 
-        if(
-            (email === "admin@admin.com" && password === "123456") ||
-            (email === "teste@teste.com" && password === "123456")
-        ) {
-            const token = "meu_token"
+        try {
+            const storedUsers = await AsyncStorage.getItem("users");
+            const usersArray: { id: string; name: string; email: string; password: string }[] = 
+                storedUsers ? JSON.parse(storedUsers) : [];
 
-            await AsyncStorage.setItem("userToken", token)
-            await AsyncStorage.setItem("userEmail", email)
-
-            if (email === "admin@admin.com") {
-                router.replace("/Admin/home")
+            const foundUser = usersArray.find(user => user.email === email && user.password === password)
+            if(foundUser || (email === "admin@admin.com" && password === "123456")){
+                const token = "meu_token"
+        
+                await AsyncStorage.setItem("userToken", token)
+                await AsyncStorage.setItem("userEmail", email)
+        
+                if (email === "admin@admin.com") {
+                    router.replace("/Admin/home")
+                } else {
+                    router.replace("/userPages/home")
+                }
             } else {
-                router.replace("/userPages/home")
+                Alert.alert("Erro", "Credenciais inválidas.")
             }
-        } else {
-            Alert.alert("Erro", "Credenciais inválidas.")
+        } catch (error) {
+            console.error("Erro ao buscar usuários cadastrados", error);
+            Alert.alert("Erro", "Ocorreu um erro ao fazer login.");
         }
+        
     }
 
     return (

@@ -12,7 +12,6 @@ import { pratos } from "@/src/utils/pratos";
 
 
 export default function updatedDishes() {
-    const [ingredients, setIngredients] = useState<string[]>([])
     const [selectedValue, setSelectedValue] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
     
@@ -25,15 +24,15 @@ export default function updatedDishes() {
     const [ingredientes, setIngredientes] = useState(prato?.ingredientes || []);
     const [ingredient, setIngredient] = useState("")
 
-    function addIngredient() {
-        if (ingredient.trim() !== "" && !ingredients.includes(ingredient)) {
-            setIngredients([ ...ingredients, ingredient ])
+    function addIngredient(item: string) {
+        if (item.trim() !== "" && !ingredientes.some((ing) => ing.name === item)) {
+            setIngredientes([ ...ingredientes, { id: Math.random().toString(), name: item } ])
             setIngredient("")
         }
     }
 
     function removeIngredient(item: string) {
-        setIngredients(ingredients.filter((ing) => ing !== item))
+        setIngredientes(ingredientes.filter((ing) => ing.id !== item))
     }
 
 
@@ -44,6 +43,7 @@ export default function updatedDishes() {
                 ...pratos[index],
                 name,
                 description,
+                ingredientes,
                 price,
             };
         }
@@ -135,10 +135,10 @@ export default function updatedDishes() {
                         <Text style={styles.allTextLabel}>Ingredientes</Text>
                         <View style={styles.inputContainer}>
                             <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
-                                {ingredients.map((item) => (
-                                <View key={item} style={styles.chip}>
-                                    <Text style={styles.chipText}>{item}</Text>
-                                    <Pressable onPress={() => removeIngredient(item)}>
+                                {ingredientes.map((item) => (
+                                <View key={item.id} style={styles.chip}>
+                                    <Text style={styles.chipText}>{item.name}</Text>
+                                    <Pressable onPress={() => removeIngredient(item.id)}>
                                         <MaterialIcons name="close" size={16} color={colors.light[300]} />
                                     </Pressable>
                                 </View>
@@ -153,7 +153,7 @@ export default function updatedDishes() {
                                     value={ingredient}
                                     onChangeText={setIngredient}
                                 />
-                                <Pressable onPress={addIngredient}>
+                                <Pressable onPress={() => addIngredient(ingredient)}>
                                     <MaterialIcons name="add" size={20} color={colors.light[300]} />
                                 </Pressable>
                             </View>
