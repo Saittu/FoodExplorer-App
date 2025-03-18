@@ -10,10 +10,18 @@ import { colors } from "@/src/styles/colors";
 
 
 export default function RequestedAdmin() {
-  const { pedidos } = usePedidosStore();
+  const { pedidos, atualizarStatus, statusPedidos } = usePedidosStore();
 
-  const [selectedValue, setSelectedValue] = useState("");
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState<{ [key: string]: boolean }>(
+    pedidos.reduce((acc, pedido) => ({ ...acc, [pedido.id]: false }), {})
+  );
+
+  const handleModalVisibility = (pedidoId: string, visible: boolean) => {
+    setModalVisible((prev) => ({
+      ...prev,
+      [pedidoId]: visible
+    }));
+  };
 
 
   return (
@@ -27,7 +35,7 @@ export default function RequestedAdmin() {
           <View key={pedido.id} style={styles.requestedContainer}>
             <View style={styles.requestedInfo}>
               <Text style={styles.requestedId}>{pedido.id}</Text>
-              <Text style={styles.requestedText}>20/05 às 18h00</Text>
+              <Text style={styles.requestedText}>{pedido.date}</Text>
             </View>
 
             <View>
@@ -39,9 +47,9 @@ export default function RequestedAdmin() {
               
               {Platform.OS === "ios" ? (
                 <>
-                  <TouchableOpacity style={styles.inputPickerBox} onPress={() => setModalVisible(true)}>
+                  <TouchableOpacity style={styles.inputPickerBox} onPress={() => handleModalVisibility(pedido.id, true)}>
                     <Text style={styles.textPickerIos}>
-                      {selectedValue ? selectedValue : "Selecione uma opção"}
+                      {statusPedidos[pedido.id] || "Pendente"}
                     </Text>
                     <MaterialIcons name="arrow-drop-down" size={24} color={colors.light[400]}/>
                   </TouchableOpacity>
@@ -49,26 +57,27 @@ export default function RequestedAdmin() {
                   <Modal
                     animationType="slide"
                     transparent={true}
-                    visible={modalVisible}
-                    onRequestClose={() => setModalVisible(false)}
+                    visible={modalVisible[pedido.id]}
+                    onRequestClose={() => handleModalVisibility(pedido.id, false)}
                   >
                     
                     <View style={styles.modalOverlay}>
                       <View style={styles.modalContent}>
-                        <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
+                        <TouchableOpacity onPress={() => handleModalVisibility(pedido.id, false)} style={styles.closeButton}>
                           <Text style={styles.closeText}>Close</Text>
                         </TouchableOpacity>
 
-                        <Picker 
-                          selectedValue={selectedValue}
-                          onValueChange={(itemValue) => {
-                            setSelectedValue(itemValue)
-                            setModalVisible(false)
+                        <Picker
+                          key={pedido.id}
+                          selectedValue={statusPedidos[pedido.id] || "Pendente"}
+                          onValueChange={(itemValue: "Pendente" | "Preparando" | "Entregue") => {
+                            atualizarStatus(pedido.id, itemValue)
+                            handleModalVisibility(pedido.id, false)
                           }}
                         >
-                          <Picker.Item color={colors.dark[700]} label="Refeições" value="Refeições" />
-                          <Picker.Item color={colors.dark[700]} label="Sobremesas" value="Sobremesas" />
-                          <Picker.Item color={colors.dark[700]}  label="Bebidas" value="Bebidas" />
+                          <Picker.Item color={colors.dark[700]} label="Pendente" value="Pendente" />
+                          <Picker.Item color={colors.dark[700]} label="Preparando" value="Preparando" />
+                          <Picker.Item color={colors.dark[700]}  label="Entregue" value="Entregue" />
                         </Picker>
                       </View>
                     </View>
@@ -77,12 +86,12 @@ export default function RequestedAdmin() {
                 </>
               ) : (
                 <Picker 
+                  key={pedido.id}
                   style={styles.androidPicker}
                   dropdownIconColor={colors.light[400]}
-                  selectedValue={selectedValue}
-                  onValueChange={(itemValue) => setSelectedValue(itemValue)}
+                  selectedValue={statusPedidos[pedido.id]}
+                  onValueChange={(itemValue) => atualizarStatus(pedido.id, itemValue)}
                 >
-                  <Picker.Item label="Selecione uma opção" value="" />
                   <Picker.Item label="Pendente" value="Pendente" />
                   <Picker.Item label="Preparando" value="Preparando" />
                   <Picker.Item label="Entregue" value="Entregue" />

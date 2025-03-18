@@ -49,7 +49,6 @@ export const styles = StyleSheet.create({
         width: 10,
         height: 10,
         borderRadius: 999,
-        backgroundColor: colors.tints.tomato[300],
         marginRight: 5
     },
 

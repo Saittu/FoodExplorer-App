@@ -16,7 +16,7 @@ export default function updatedDishes() {
     const [modalVisible, setModalVisible] = useState(false);
     
     const { id } = useLocalSearchParams(); 
-    const prato = pratos.find((p) => p.id === id)
+    const prato = pratos.flatMap((categoria) => categoria.prato).find((p) => p.id === id)
     
     const [name, setName] = useState(prato?.name || "");
     const [description, setDescription] = useState(prato?.description || "");
@@ -37,17 +37,20 @@ export default function updatedDishes() {
 
 
     function salvarAlteracoes() {
-        const index = pratos.findIndex((p) => p.id === id);
-        if (index !== -1) {
-            pratos[index] = {
-                ...pratos[index],
-                name,
-                description,
-                ingredientes,
-                price,
-            };
+        for (const categoria of pratos) {
+            const index = categoria.prato.findIndex((p) => p.id === id);
+            if (index !== -1) {
+                categoria.prato[index] = {
+                    ...categoria.prato[index],
+                    name,
+                    description,
+                    ingredientes,
+                    price,
+                };
+                router.replace("/Admin/home");
+                return
+            }
         }
-        router.replace("/Admin/home"); 
     }
 
     return (

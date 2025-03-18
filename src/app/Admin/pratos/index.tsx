@@ -11,7 +11,9 @@ import HeaderAdmin from "@/src/components/componentAdmin/headerAdmin";
 export default function DishesAdminDetails() {
     const { from, id } = useLocalSearchParams()
 
-    const prato = pratos.find((p) => p.id === id)
+    const prato = pratos
+        .flatMap((categoria) => categoria.prato)
+        .find((p) => p.id === String(id))
 
     if (!prato) {
         router.replace("/userPages/home")

@@ -11,11 +11,7 @@ import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
 import DishesAdmin from "@/src/components/componentAdmin/DishesAdmin";
 
 export default function Home() {
-    const { addToCart } = useCart()
 
-    const pratosFirst = pratos.slice(0, 3)
-    const pratosSecond = pratos.slice(3, 6)
-    const pratosThird = pratos.slice(6, 8)
     return(
         <View style={styles.main}>
             <View>
@@ -32,9 +28,9 @@ export default function Home() {
                         </LinearGradient>
                     </View>
                     
-                    <DishesAdmin categorias="Refeições" dishes={pratosFirst}/>
-                    <DishesAdmin categorias="Entradas" dishes={pratosSecond}/>
-                    <DishesAdmin categorias="Outros" dishes={pratosThird} />
+                    <DishesAdmin category="Refeições"/>
+                    <DishesAdmin category="Sobremesas" />
+                    <DishesAdmin category="Bebidas" />
 
                     <View style={{ paddingTop: Platform.OS === "ios" ? 220 : 160}}></View>
                 </ScrollView>

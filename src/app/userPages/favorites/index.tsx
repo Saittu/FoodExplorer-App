@@ -11,7 +11,8 @@ import { router } from 'expo-router';
 export default function Favorites() {
     const { favorites, toggleFavorite } = useFavorite();
 
-    const favoritos = pratos.filter(prato => favorites[prato.id]);
+    const todosPratos = pratos.flatMap(category => category.prato);
+    const favoritos = todosPratos.filter(prato => favorites[prato.id]);
 
     return(
         <View style={styles.main}>

@@ -12,9 +12,6 @@ import Navigation from "@/src/components/componentsUser/navigation";
 export default function Home() {
     const { addToCart } = useCart()
 
-    const pratosFirst = pratos.slice(0, 3)
-    const pratosSecond = pratos.slice(3, 6)
-    const pratosThird = pratos.slice(6, 8)
     return(
         <View style={styles.main}>
             <View>
@@ -31,9 +28,9 @@ export default function Home() {
                         </LinearGradient>
                     </View>
                     
-                    <BoxPratos categorias="Refeições" dishes={pratosFirst} onAddToCart={addToCart}/>
-                    <BoxPratos categorias="Entradas" dishes={pratosSecond} onAddToCart={addToCart}/>
-                    <BoxPratos categorias="Outros" dishes={pratosThird} onAddToCart={addToCart}/>
+                    <BoxPratos category="Refeições" onAddToCart={addToCart}/>
+                    <BoxPratos category="Sobremesas" onAddToCart={addToCart}/>
+                    <BoxPratos category="Bebidas" onAddToCart={addToCart}/>
 
                     <View style={{ paddingTop: Platform.OS === "ios" ? 220 : 160}}></View>
                 </ScrollView>

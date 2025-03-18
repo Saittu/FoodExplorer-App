@@ -15,7 +15,9 @@ export default function Dishes() {
     const { addToCart } = useCart();
     const [count, setCount] = useState(1);
 
-    const prato = pratos.find((p) => p.id === id)
+    const prato = pratos
+        .flatMap((categoria) => categoria.prato)
+        .find((p) => p.id === String(id))
 
     if (!prato) {
         router.replace("/userPages/home")

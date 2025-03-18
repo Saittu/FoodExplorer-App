@@ -3,9 +3,41 @@ import Header from "@/src/components/componentsUser/header";
 import Navigation from "@/src/components/componentsUser/navigation";
 import { styles } from "./styles";
 import { usePedidosStore } from "@/src/storage/usePedidosStore";
+import { colors } from "@/src/styles/colors";
 
 export default function Requested() {
-  const { pedidos } = usePedidosStore();
+  const { pedidos, statusPedidos } = usePedidosStore();
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "Pendente":
+        return colors.tints.tomato[300]
+      case "Preparando":
+        return colors.tints.carrot[100]
+      case "Entregue":
+        return colors.tints.mint[100]
+    }
+  }
+  const formatDate = (date: Date | string): string => {
+    const d = new Date(date);
+
+    const options: Intl.DateTimeFormatOptions = {
+        timeZone: 'America/Sao_Paulo',
+        day: '2-digit',
+        month: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false 
+    };
+
+    const formattedDate = d.toLocaleString('pt-BR', options);
+
+    const [datePart, timePart] = formattedDate.split(' ');
+    const [day, month] = datePart.split('/');
+    const [hours, minute] = timePart.split(':');
+
+    return `${day}/${month} às ${hours}:${minute}`;
+};
 
   return (
     <View style={styles.main}>
@@ -20,11 +52,11 @@ export default function Requested() {
               <Text style={styles.requestedId}>{pedido.id}</Text>
 
               <View style={styles.requestedStatus}>
-                <View style={styles.requestedSpan}></View>
-                <Text style={styles.requestedText}>Pendente</Text>
+                <View style={[styles.requestedSpan, {backgroundColor: getStatusColor(statusPedidos[pedido.id] || "Pendente")}]}></View>
+                <Text style={styles.requestedText}>{statusPedidos[pedido.id] || "Pendente"}</Text>
               </View>
 
-              <Text style={styles.requestedText}>20/05 às 18h00</Text>
+              <Text style={styles.requestedText}>{pedido.date}</Text>
             </View>
 
             <View>
