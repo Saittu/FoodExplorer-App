@@ -10,6 +10,7 @@ import { useCart } from "@/src/context/carContext";
 import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
 import DishesAdmin from "@/src/components/componentAdmin/DishesAdmin";
 
+
 export default function Home() {
 
     return(
@@ -28,9 +29,9 @@ export default function Home() {
                         </LinearGradient>
                     </View>
                     
-                    <DishesAdmin category="Refeições"/>
-                    <DishesAdmin category="Sobremesas" />
-                    <DishesAdmin category="Bebidas" />
+                    {["Refeições", "Sobremesas", "Bebidas"].map((category) => (
+                        <DishesAdmin key={category} category={category}  />
+                    ))}
 
                     <View style={{ paddingTop: Platform.OS === "ios" ? 220 : 160}}></View>
                 </ScrollView>

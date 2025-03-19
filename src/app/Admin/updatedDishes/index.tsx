@@ -16,7 +16,7 @@ export default function updatedDishes() {
     const [modalVisible, setModalVisible] = useState(false);
     
     const { id } = useLocalSearchParams(); 
-    const prato = pratos.flatMap((categoria) => categoria.prato).find((p) => p.id === id)
+    const prato = pratos.find((p) => p.id === id)
     
     const [name, setName] = useState(prato?.name || "");
     const [description, setDescription] = useState(prato?.description || "");
@@ -37,21 +37,36 @@ export default function updatedDishes() {
 
 
     function salvarAlteracoes() {
-        for (const categoria of pratos) {
-            const index = categoria.prato.findIndex((p) => p.id === id);
-            if (index !== -1) {
-                categoria.prato[index] = {
-                    ...categoria.prato[index],
-                    name,
-                    description,
-                    ingredientes,
-                    price,
-                };
-                router.replace("/Admin/home");
-                return
+        const index = pratos.findIndex((p) => p.id === id);
+        if (index !== -1) {
+            pratos[index] = {
+                ...pratos[index],
+                name,
+                description,
+                ingredientes,
+                price,
+                categoryId: selectedCategory
             }
+            router.replace("/Admin/home");
+            return
         }
     }
+
+    function removerPrato() {
+        const index = pratos.findIndex((p) => p.id === id);
+        if (index !== -1) {
+            pratos.splice(index, 1)
+            router.replace("/Admin/home")
+        }
+    }
+
+    const categorias = [
+        { id: "1", name: "Refeições" },
+        { id: "2", name: "Sobremesas" },
+        { id: "3", name: "Bebidas" }
+    ];
+
+    const [selectedCategory, setSelectedCategory] = useState(prato?.categoryId || "");
 
     return (
         <View  style={styles.main}>
@@ -85,7 +100,10 @@ export default function updatedDishes() {
                             <>
                             <TouchableOpacity style={styles.inputPickerBox} onPress={() => setModalVisible(true)}>
                                 <Text style={styles.textPickerIos}>
-                                {selectedValue ? selectedValue : "Selecione uma opção"}
+                                    {selectedCategory 
+                                        ? categorias.find(categoria => categoria.id === selectedCategory)?.name 
+                                        : "Selecione uma opção"
+                                    }
                                 </Text>
                                 <MaterialIcons name="arrow-drop-down" size={24} color={colors.light[400]}/>
                             </TouchableOpacity>
@@ -104,15 +122,16 @@ export default function updatedDishes() {
                                     </TouchableOpacity>
 
                                     <Picker 
-                                    selectedValue={selectedValue}
+                                    selectedValue={selectedCategory}
                                     onValueChange={(itemValue) => {
-                                        setSelectedValue(itemValue)
+                                        setSelectedCategory(itemValue)
                                         setModalVisible(false)
                                     }}
                                     >
-                                        <Picker.Item color={colors.dark[700]} label="Refeições" value="Refeições" />
-                                        <Picker.Item color={colors.dark[700]} label="Sobremesas" value="Sobremesas" />
-                                        <Picker.Item color={colors.dark[700]}  label="Bebidas" value="Bebidas" />
+                                        <Picker.Item label="Selecione uma opção" value="" />
+                                        {categorias.map((categoria) => (
+                                            <Picker.Item color={colors.dark[700]} key={categoria.id} label={categoria.name} value={categoria.id} />
+                                        ))}
                                     </Picker>
                                 </View>
                             </View>
@@ -123,13 +142,13 @@ export default function updatedDishes() {
                             <Picker 
                             style={styles.androidPicker}
                             dropdownIconColor={colors.light[400]}
-                            selectedValue={selectedValue}
-                            onValueChange={(itemValue) => setSelectedValue(itemValue)}
+                            selectedValue={selectedCategory}
+                            onValueChange={(itemValue) => setSelectedCategory(itemValue)}
                             >
                                 <Picker.Item label="Selecione uma opção" value="" />
-                                <Picker.Item label="Refeições" value="Refeições" />
-                                <Picker.Item label="Sobremesas" value="Sobremesas" />
-                                <Picker.Item label="Bebidas" value="Bebidas" />
+                                {categorias.map((categoria) => (
+                                    <Picker.Item key={categoria.id} label={categoria.name} value={categoria.id} />
+                                ))}
                             </Picker>
                         )}
                     </View>
@@ -185,7 +204,7 @@ export default function updatedDishes() {
                     </View>
 
                     <View style={styles.containerButtons}>
-                        <TouchableOpacity style={[styles.button, {backgroundColor: colors.dark[800], width: 154}]}>
+                        <TouchableOpacity onPress={removerPrato} style={[styles.button, {backgroundColor: colors.dark[800], width: 154}]}>
                             <Text style={{ fontWeight: "500", color: colors.light[100]}}>Excluir prato</Text>
                         </TouchableOpacity>
 

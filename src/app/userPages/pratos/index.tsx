@@ -15,9 +15,7 @@ export default function Dishes() {
     const { addToCart } = useCart();
     const [count, setCount] = useState(1);
 
-    const prato = pratos
-        .flatMap((categoria) => categoria.prato)
-        .find((p) => p.id === String(id))
+    const prato = pratos.find((p) => p.id === String(id));
 
     if (!prato) {
         router.replace("/userPages/home")
@@ -52,7 +50,7 @@ export default function Dishes() {
                     </View>
 
                     <View style={{ alignItems: "center" }}>
-                        <Image source={prato.imageLarge} />
+                        <Image style={{ width: 300, height: 300, borderRadius: 999 }} source={typeof prato.imageLarge === "string" ? {uri: prato.imageLarge} : prato.imageLarge} />
                     </View>
 
                     <View style={styles.boxDescriptionDish}>

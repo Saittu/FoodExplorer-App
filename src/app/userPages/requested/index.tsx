@@ -18,26 +18,6 @@ export default function Requested() {
         return colors.tints.mint[100]
     }
   }
-  const formatDate = (date: Date | string): string => {
-    const d = new Date(date);
-
-    const options: Intl.DateTimeFormatOptions = {
-        timeZone: 'America/Sao_Paulo',
-        day: '2-digit',
-        month: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false 
-    };
-
-    const formattedDate = d.toLocaleString('pt-BR', options);
-
-    const [datePart, timePart] = formattedDate.split(' ');
-    const [day, month] = datePart.split('/');
-    const [hours, minute] = timePart.split(':');
-
-    return `${day}/${month} às ${hours}:${minute}`;
-};
 
   return (
     <View style={styles.main}>

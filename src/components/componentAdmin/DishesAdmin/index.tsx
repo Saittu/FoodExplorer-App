@@ -13,7 +13,13 @@ type Props = {
 }
 
 export default function DishesAdmin({ category }: Props) { 
-    const pratosFilter = pratos.find((cat) => cat.category === category)?.prato || [];
+    const categoryMap: Record<string, string> = {
+        "Refeições": "1",
+        "Sobremesas": "2",
+        "Bebidas": "3"
+    };
+
+    const pratosFilter = pratos.filter(prato => prato.categoryId === categoryMap[category]);
 
     return (
         <>
@@ -36,7 +42,7 @@ export default function DishesAdmin({ category }: Props) {
                                         />
                                 </TouchableOpacity>
                 
-                                <Image source={item.imageSmall} />
+                                <Image style={{ width: 100, height: 100, borderRadius: 12 }} source={typeof item.imageSmall === "string" ? { uri: item.imageSmall} : item.imageSmall } />
                 
                                 <TouchableOpacity style={styles.refeicaoText} onPress={() => {router.push(`/Admin/pratos?id=${item.id}`)}}>
                                     <Text style={styles.title}>{item.name}</Text>

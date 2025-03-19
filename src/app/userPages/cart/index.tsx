@@ -14,7 +14,7 @@ export default function Cart() {
 
     const renderItem: ListRenderItem<Pratos> = ({ item }) => (
         <View style={styles.item}>
-            <Image source={item.imageSmall} />
+            <Image style={{ width: 100, height: 100, borderRadius: 999 }} source={typeof item.imageSmall === "string" ? { uri: item.imageSmall} : item.imageSmall } />
             <View style={styles.itemDetails}>
                 <Text style={styles.nameDish}>{item.name}</Text>
                 <Text style={styles.quantity}>Quantidade: {item.count}</Text>

@@ -1,3 +1,5 @@
+import { Ref } from "react";
+
 export interface Pratos {
     id: string;
     name: string;
@@ -7,7 +9,9 @@ export interface Pratos {
     imageSmall: any;
     imageLarge: any;
     description: string;
-    ingredientes: { id: string; name: string }[];    
+    ingredientes: { id: string; name: string }[];   
+    categoryId: string 
+
 }
 
 export interface Ingredientes  {
@@ -19,15 +23,17 @@ export interface Ingredientes  {
 export interface Category  {
     id: string
     category: "Refeições" | "Sobremesas" | "Bebidas";
-    prato: Pratos[]
 }
 
+export const categorias: Category[] = [
+    { id: "1", category: "Refeições" },
+    { id: "2", category: "Sobremesas" },
+    { id: "3", category: "Bebidas" },
+];
 
-export const pratos:  Category[] =[
-    {
-        id: "1",
-        category: "Refeições",
-        prato: [
+
+export const pratos:  Pratos[] =[
+    
             { 
                 id: "1", 
                 name: "Salada Ravanello", 
@@ -45,6 +51,7 @@ export const pratos:  Category[] =[
                     { id: "5", name: "rabanete"},
                     { id: "6", name: "tomate"},
                 ],
+                categoryId: "1"
             },
             { 
                 id: "2", 
@@ -62,6 +69,7 @@ export const pratos:  Category[] =[
                     { id: "5", name: "Azeite de oliva"},
                     { id: "6", name: "Salsinha fresca"},
                 ],
+                categoryId: "1"
             },
             { 
                 id: "3", 
@@ -80,6 +88,7 @@ export const pratos:  Category[] =[
                     { id: "5", name: "Pão torrado"},
                     { id: "6", name: "Rúcula"},
                 ],
+                categoryId: "1"
             },
             { 
                 id: "6", 
@@ -98,14 +107,11 @@ export const pratos:  Category[] =[
                     { id: "5", name: "Pepino fatiado"},
                     { id: "6", name: "Molho de iogurte"},
                 ],
+                categoryId: "1"
             },
-        ]
-    },
+        
     
-    {
-        id: "2",
-        category: "Sobremesas",
-        prato: [
+    
             { 
                 id: "4", 
                 name: "Pastry", 
@@ -123,6 +129,7 @@ export const pratos:  Category[] =[
                     { id: "5", name: "Ovos"},
                     { id: "6", name: "Manteiga"},
                 ],
+                categoryId: "2"
             },
             { 
                 id: "5", 
@@ -141,6 +148,7 @@ export const pratos:  Category[] =[
                     { id: "5", name: "Tomates-cereja"},
                     { id: "6", name: "Azeite trufado"},
                 ],
+                categoryId: "2"
             },
             { 
                 id: "7", 
@@ -158,14 +166,9 @@ export const pratos:  Category[] =[
                     { id: "5", name: "Chocolate branco"},
                     { id: "6", name: "Creme de leite"},
                 ],
+                categoryId: "2"
             },
-        ]
-    },
-    
-    {
-        id: "3",
-        category: "Bebidas",
-        prato: [
+
             { 
                 id: "8", 
                 name: "Suco de Maracujá", 
@@ -183,9 +186,6 @@ export const pratos:  Category[] =[
                     { id: "5", name: "Folhas de hortelã"},
                     { id: "6", name: "Limão espremido"},
                 ],
+                categoryId: "3"
             },
         ]
-    },
-    
-];
-

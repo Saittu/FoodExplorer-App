@@ -28,9 +28,9 @@ export default function Home() {
                         </LinearGradient>
                     </View>
                     
-                    <BoxPratos category="Refeições" onAddToCart={addToCart}/>
-                    <BoxPratos category="Sobremesas" onAddToCart={addToCart}/>
-                    <BoxPratos category="Bebidas" onAddToCart={addToCart}/>
+                    {["Refeições", "Sobremesas", "Bebidas"].map((category) => (
+                        <BoxPratos key={category} category={category} onAddToCart={addToCart} />
+                    ))}
 
                     <View style={{ paddingTop: Platform.OS === "ios" ? 220 : 160}}></View>
                 </ScrollView>

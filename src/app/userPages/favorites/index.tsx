@@ -11,8 +11,8 @@ import { router } from 'expo-router';
 export default function Favorites() {
     const { favorites, toggleFavorite } = useFavorite();
 
-    const todosPratos = pratos.flatMap(category => category.prato);
-    const favoritos = todosPratos.filter(prato => favorites[prato.id]);
+    
+    const favoritos = pratos.filter(prato => favorites[prato.id]);
 
     return(
         <View style={styles.main}>
@@ -32,7 +32,7 @@ export default function Favorites() {
                             scrollEnabled={false}
                             renderItem={({ item }) => (
                                 <View style={styles.item}>
-                                    <Image source={item.imageSmall} />
+                                    <Image style={{ width: 100, height: 100, borderRadius: 999 }} source={typeof item.imageSmall === "string" ? { uri: item.imageSmall} : item.imageSmall } />
                                     <View style={styles.itemInfos}>
                                         <TouchableOpacity style={styles.itemDetails} onPress={() => router.navigate(`/userPages/pratos?id=${item.id}`)}>
                                             <Text style={styles.name}>{item.name}</Text>
