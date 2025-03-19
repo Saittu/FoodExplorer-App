@@ -65,23 +65,22 @@ export default function updatedDishes() {
     ];
 
     async function pickImage() {
-        // Solicitar permissões
-        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
         if (status !== "granted") {
-            alert("Desculpe, precisamos de permissão para acessar suas fotos!");
+            alert("Desculpe, precisamos de permissão para acessar suas fotos!")
             return;
         }
 
-        // Abrir o seletor de imagens
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
+            selectionLimit: 1,
         });
 
         if (!result.canceled) {
-            setImageUri(result.assets[0].uri); // Atualize o estado com a URI da imagem
+            setImageUri(result.assets[0].uri)
         }
     }
 

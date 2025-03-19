@@ -1,4 +1,4 @@
-import { View, Text, Pressable, TouchableOpacity, TextInput, ScrollView, Platform, FlatList, Modal } from "react-native";
+import { View, Text, Pressable, TouchableOpacity, TextInput, ScrollView, Platform, FlatList, Modal, Image } from "react-native";
 import { styles } from "./styles"
 import HeaderAdmin from "@/src/components/componentAdmin/headerAdmin";
 import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
@@ -9,10 +9,10 @@ import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
 import { pratos } from "@/src/utils/pratos";
+import * as ImagePicker from "expo-image-picker";
 
 
 export default function updatedDishes() {
-    const [selectedValue, setSelectedValue] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
     
     const { id } = useLocalSearchParams(); 
@@ -23,6 +23,7 @@ export default function updatedDishes() {
     const [price, setPrice] = useState(prato?.price || "");
     const [ingredientes, setIngredientes] = useState(prato?.ingredientes || []);
     const [ingredient, setIngredient] = useState("")
+    const [imageUri, setImageUri] = useState<string | null>(null)
 
     function addIngredient(item: string) {
         if (item.trim() !== "" && !ingredientes.some((ing) => ing.name === item)) {
@@ -35,6 +36,26 @@ export default function updatedDishes() {
         setIngredientes(ingredientes.filter((ing) => ing.id !== item))
     }
 
+    async function pickImage() {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
+            if (status !== "granted") {
+                alert("Desculpe, precisamos de permissão para acessar suas fotos!")
+                return;
+            }
+    
+            const result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.Images,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+                selectionLimit: 1,
+            });
+    
+            if (!result.canceled) {
+                setImageUri(result.assets[0].uri)
+            }
+        }
+
 
     function salvarAlteracoes() {
         const index = pratos.findIndex((p) => p.id === id);
@@ -42,6 +63,8 @@ export default function updatedDishes() {
             pratos[index] = {
                 ...pratos[index],
                 name,
+                imageSmall: imageUri,
+                imageLarge: imageUri,
                 description,
                 ingredientes,
                 price,
@@ -83,10 +106,16 @@ export default function updatedDishes() {
 
                     <View style={styles.uploadImage}>
                         <Text style={styles.allTextLabel}>Imagem do prato</Text>
-                        <Pressable style={styles.buttonUpload}>
+                        <Pressable style={styles.buttonUpload} onPress={pickImage}>
                             <MaterialIcons color={colors.light[100]} size={24} name="upload"/>
                             <Text style={styles.textButtonUpload}>Selecionar Imagem para alterá-la</Text>
                         </Pressable>
+                        {imageUri && (
+                            <Image
+                                source={{ uri: imageUri }}
+                                style={{ width: 100, height: 100, marginTop: 10, borderRadius: 8 }}
+                            />
+                        )}
                     </View>
 
                     <View style={{ gap: 8}}>
