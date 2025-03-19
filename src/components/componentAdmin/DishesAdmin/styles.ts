@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         marginHorizontal: 8,
         borderWidth: 1,
-        borderColor: colors.tints.cake[100]
+        // borderColor: colors.tints.cake[100]
     },
 
     content: {

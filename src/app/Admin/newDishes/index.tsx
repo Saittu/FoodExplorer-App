@@ -84,8 +84,6 @@ export default function updatedDishes() {
         }
     }
 
-
-
     return (
         <View  style={styles.main}>
             <HeaderAdmin/>

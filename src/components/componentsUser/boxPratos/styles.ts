@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         width: 210,
         marginHorizontal: 8,
         borderWidth: 1,
-        borderColor: colors.tints.cake[100]
+        // borderColor: colors.tints.cake[100]
     },
 
     content: {
