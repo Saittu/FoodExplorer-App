@@ -2,7 +2,7 @@ import { View, Text, FlatList, TouchableOpacity, Image, Animated } from "react-n
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { Button } from "../../globais/button";
-import { pratos, type Pratos } from "@/src/utils/pratos";
+import { pratos, type Pratos } from "@/src/utils/dados";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useRef, useState } from "react";
 import { colors } from "@/src/styles/colors";
@@ -42,7 +42,7 @@ export default function DishesAdmin({ category }: Props) {
                                         />
                                 </TouchableOpacity>
                 
-                                <Image style={{ width: 100, height: 100, borderRadius: 12 }} source={typeof item.imageSmall === "string" ? { uri: item.imageSmall} : item.imageSmall } />
+                                <Image style={{ width: 100, height: 100, borderRadius: 12 }} source={typeof item.image === "string" ? { uri: item.image} : item.image } />
                 
                                 <TouchableOpacity style={styles.refeicaoText} onPress={() => {router.push(`/Admin/pratos?id=${item.id}`)}}>
                                     <Text style={styles.title}>{item.name}</Text>

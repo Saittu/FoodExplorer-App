@@ -2,7 +2,7 @@ import { View, Text, FlatList, Image, TouchableOpacity, ScrollView, ListRenderIt
 import { styles } from './styles';
 import Header from '@/src/components/componentsUser/header';
 import Navigation from '@/src/components/componentsUser/navigation';
-import { pratos, Pratos } from '@/src/utils/pratos';
+import { pratos, Pratos } from '@/src/utils/dados';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from '@/src/styles/colors';
 import { useFavorite } from '@/src/storage/useFavorite';
@@ -32,7 +32,7 @@ export default function Favorites() {
                             scrollEnabled={false}
                             renderItem={({ item }) => (
                                 <View style={styles.item}>
-                                    <Image style={{ width: 100, height: 100, borderRadius: 999 }} source={typeof item.imageSmall === "string" ? { uri: item.imageSmall} : item.imageSmall } />
+                                    <Image style={{ width: 100, height: 100, borderRadius: 999 }} source={typeof item.image === "string" ? { uri: item.image} : item.image } />
                                     <View style={styles.itemInfos}>
                                         <TouchableOpacity style={styles.itemDetails} onPress={() => router.navigate(`/userPages/pratos?id=${item.id}`)}>
                                             <Text style={styles.name}>{item.name}</Text>

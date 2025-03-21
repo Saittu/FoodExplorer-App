@@ -42,8 +42,7 @@ export default function updatedDishes() {
             price: price,
             count: 0,
             favorite: false,
-            imageSmall: imageUri,
-            imageLarge: imageUri,
+            image: imageUri,
             description: description,
             ingredientes: ingredients.map((ingredientName) => ({
                 id: uuid.v4(), 

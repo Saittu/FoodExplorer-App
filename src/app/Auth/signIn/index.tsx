@@ -5,6 +5,8 @@ import { Button } from "@/src/components/globais/button";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { user, Users } from "@/src/utils/dados";
+import { User } from "@supabase/supabase-js";
 
 
 export default function signIn() {
@@ -20,21 +22,32 @@ export default function signIn() {
 
         try {
             const storedUsers = await AsyncStorage.getItem("users");
-            const usersArray: { id: string; name: string; email: string; password: string }[] = 
-                storedUsers ? JSON.parse(storedUsers) : [];
+            let usersArray: { id: string; name: string; email: string; password: string, manager: "admin" | "user" }[] = [];
 
-            const foundUser = usersArray.find(user => user.email === email && user.password === password)
-            if(foundUser || (email === "admin@admin.com" && password === "123456")){
+            
+            if (storedUsers) {
+                usersArray = JSON.parse(storedUsers);
+            }
+            const allUsers = [...usersArray, ...user]
+
+            console.log("Usuários armazenados no AsyncStorage:", allUsers)
+
+            const foundUser = allUsers.find((user) => user.email.toLowerCase() === email.toLowerCase() && user.password === password)
+
+            console.log("Usuário encontrado:", foundUser);
+
+            if(foundUser){
                 const token = "meu_token"
         
                 await AsyncStorage.setItem("userToken", token)
-                await AsyncStorage.setItem("userEmail", email)
+                await AsyncStorage.setItem("userData", JSON.stringify(foundUser))
         
-                if (email === "admin@admin.com") {
+                if (foundUser.manager === "admin") {
                     router.replace("/Admin/home")
                 } else {
                     router.replace("/userPages/home")
                 }
+                console.log(foundUser)
             } else {
                 Alert.alert("Erro", "Credenciais inválidas.")
             }

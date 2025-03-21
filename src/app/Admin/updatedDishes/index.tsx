@@ -8,7 +8,7 @@ import { colors } from "@/src/styles/colors";
 import { useEffect, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { Picker } from "@react-native-picker/picker";
-import { pratos } from "@/src/utils/pratos";
+import { pratos } from "@/src/utils/dados";
 import * as ImagePicker from "expo-image-picker";
 
 
@@ -63,8 +63,7 @@ export default function updatedDishes() {
             pratos[index] = {
                 ...pratos[index],
                 name,
-                imageSmall: imageUri,
-                imageLarge: imageUri,
+                image: imageUri,
                 description,
                 ingredientes,
                 price,

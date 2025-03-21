@@ -4,7 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import HeaderAdmin from "@/src/components/componentAdmin/headerAdmin";
 import BoxPratos from "@/src/components/componentsUser/boxPratos";
-import { pratos } from "@/src/utils/pratos";
+import { pratos } from "@/src/utils/dados";
 import { useState } from "react";
 import { useCart } from "@/src/context/carContext";
 import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";

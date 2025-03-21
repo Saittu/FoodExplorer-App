@@ -1,10 +1,8 @@
 import { create } from "zustand";
+import { type Users } from "../utils/dados";
 
 type User = {
-    id: string
-    name: string
-    email: string
-    password: string
+    user: Users[]
 }
 
 type UserState = {

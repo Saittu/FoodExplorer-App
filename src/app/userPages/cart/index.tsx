@@ -3,7 +3,7 @@ import Header from "@/src/components/componentsUser/header";
 import { Button } from "@/src/components/globais/button";
 import { styles } from "./styles";
 import { useCart } from "@/src/context/carContext";
-import { Pratos } from "@/src/utils/pratos";
+import { Pratos } from "@/src/utils/dados";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "@/src/styles/colors";
 import { router } from "expo-router";
@@ -14,7 +14,7 @@ export default function Cart() {
 
     const renderItem: ListRenderItem<Pratos> = ({ item }) => (
         <View style={styles.item}>
-            <Image style={{ width: 100, height: 100, borderRadius: 999 }} source={typeof item.imageSmall === "string" ? { uri: item.imageSmall} : item.imageSmall } />
+            <Image style={{ width: 100, height: 100, borderRadius: 999 }} source={typeof item.image === "string" ? { uri: item.image} : item.image } />
             <View style={styles.itemDetails}>
                 <Text style={styles.nameDish}>{item.name}</Text>
                 <Text style={styles.quantity}>Quantidade: {item.count}</Text>

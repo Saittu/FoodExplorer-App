@@ -4,7 +4,7 @@ import { styles } from "./styles";
 import { Button } from "@/src/components/globais/button";
 import { colors } from "@/src/styles/colors";
 import { router, useLocalSearchParams } from "expo-router";
-import { pratos } from "@/src/utils/pratos";
+import { pratos } from "@/src/utils/dados";
 import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
 import HeaderAdmin from "@/src/components/componentAdmin/headerAdmin";
 
@@ -14,7 +14,7 @@ export default function DishesAdminDetails() {
     const prato = pratos.find((p) => p.id === String(id))
 
     if (!prato) {
-        router.replace("/userPages/home")
+        router.replace("/Admin/home")
         return null
     }
 
@@ -32,7 +32,7 @@ export default function DishesAdminDetails() {
                     </View>
 
                     <View style={{ alignItems: "center" }}>
-                        <Image style={{ width: 300, height: 300, borderRadius: 999 }} source={typeof prato.imageLarge === "string" ? {uri: prato.imageLarge} : prato.imageLarge} />
+                        <Image style={{ width: 300, height: 300, borderRadius: 999 }} source={typeof prato.image === "string" ? {uri: prato.image} : prato.image} />
                     </View>
 
                     <View style={styles.boxDescriptionDish}>

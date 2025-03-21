@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { pratos, Pratos } from "../utils/pratos";
+import { pratos, Pratos } from "../utils/dados";
 import uuid from "react-native-uuid";
 
 type NewDishStore = {
@@ -8,7 +8,7 @@ type NewDishStore = {
 
 export const useNewDishe = create<NewDishStore>(() => ({
     adicionarPrato: (novoPrato) => {
-        pratos.push({ ...novoPrato, id: uuid.v4() }); // Adiciona diretamente à lista global
+        pratos.push({ ...novoPrato, id: uuid.v4() }); 
     },
 }));
 

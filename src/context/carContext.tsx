@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode, useMemo } from "react";
-import { Pratos } from "../utils/pratos";
+import { Pratos } from "../utils/dados";
 
 type CartContextType = {
     cart: Pratos[];

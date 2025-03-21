@@ -6,7 +6,7 @@ import { Button } from "@/src/components/globais/button";
 import { colors } from "@/src/styles/colors";
 import { router, useLocalSearchParams } from "expo-router";
 import { useCart } from "@/src/context/carContext";
-import { Pratos, pratos } from "@/src/utils/pratos";
+import { Pratos, pratos } from "@/src/utils/dados";
 import { useState } from "react";
 import Navigation from "@/src/components/componentsUser/navigation";
 
@@ -50,7 +50,7 @@ export default function Dishes() {
                     </View>
 
                     <View style={{ alignItems: "center" }}>
-                        <Image style={{ width: 300, height: 300, borderRadius: 999 }} source={typeof prato.imageLarge === "string" ? {uri: prato.imageLarge} : prato.imageLarge} />
+                        <Image style={{ width: 300, height: 300, borderRadius: 999 }} source={typeof prato.image === "string" ? {uri: prato.image} : prato.image} />
                     </View>
 
                     <View style={styles.boxDescriptionDish}>

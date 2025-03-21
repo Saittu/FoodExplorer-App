@@ -1,4 +1,15 @@
-import { Ref } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { useEffect } from "react"
+
+
+export interface Users {
+    id: string
+    name: string
+    email: string
+    image?: any 
+    password: string
+    manager: "admin" | "user"
+}
 
 export interface Pratos {
     id: string;
@@ -6,8 +17,7 @@ export interface Pratos {
     price: string;
     count: number;
     favorite: boolean;
-    imageSmall: any;
-    imageLarge: any;
+    image: any;
     description: string;
     ingredientes: { id: string; name: string }[];   
     categoryId: string 
@@ -31,6 +41,43 @@ export const categorias: Category[] = [
     { id: "3", category: "Bebidas" },
 ];
 
+export const user: Users[] = [
+    {
+        id: "1",
+        name: "Jean",
+        email: "jean@teste.com",
+        image: null,
+        password: "123456",
+        manager: "user"
+    },
+
+    {
+        id: "2",
+        name: "Teste",
+        email: "teste@teste.com",
+        image: null,
+        password: "123456",
+        manager: "user"
+    },
+
+    {
+        id: "3",
+        name: "admin",
+        email: "admin@admini.com",
+        image: null,
+        password: "123456",
+        manager: "admin"
+    }
+
+]
+
+// useEffect(() => {
+//     async function storeDefaultUsers() {
+//         await AsyncStorage.setItem("users", JSON.stringify(user));
+//     }
+//     storeDefaultUsers();
+// }, []);
+
 
 export const pratos:  Pratos[] =[
     
@@ -40,8 +87,7 @@ export const pratos:  Pratos[] =[
                 price: "49,97", 
                 count: 1, 
                 favorite: false, 
-                imageSmall: require("@/src/assets/pratos-100/salada.png"),
-                imageLarge: require("@/src/assets/pratos-300/salada.png"),
+                image: require("@/src/assets/pratos-300/salada.png"),
                 description: "Rabanetes, folhas verdes e molho agridoce salpicados com gergelim.",
                 ingredientes: [
                     { id: "1", name: "alface"},
@@ -58,8 +104,7 @@ export const pratos:  Pratos[] =[
                 name: "Spaguetti Gambe", 
                 price: "79,97", count: 1, 
                 favorite: false, 
-                imageSmall: require("@/src/assets/pratos-100/spaguetti.png"),
-                imageLarge: require("@/src/assets/pratos-300/spaguetti.png"),
+                image: require("@/src/assets/pratos-300/spaguetti.png"),
                 description: "Massa com camarões e molho de tomate fresco.",
                 ingredientes: [
                     { id: "1", name: "Espaguete"},
@@ -77,8 +122,7 @@ export const pratos:  Pratos[] =[
                 price: "55,00", 
                 count: 1, 
                 favorite: false, 
-                imageSmall: require("@/src/assets/pratos-100/prune.png"),
-                imageLarge: require("@/src/assets/pratos-300/prune.png"),
+                image: require("@/src/assets/pratos-300/prune.png"),
                 description: "Ameixas caramelizadas com especiarias e creme suave.",
                 ingredientes: [
                     { id: "1", name: "Ameixas secas"},
@@ -96,8 +140,7 @@ export const pratos:  Pratos[] =[
                 price: "38,70", 
                 count: 1, 
                 favorite: false, 
-                imageSmall: require("@/src/assets/pratos-100/molla.png"),
-                imageLarge: require("@/src/assets/pratos-300/molla.png"),
+                image: require("@/src/assets/pratos-300/molla.png"),
                 description: "Folhas verdes, queijo e molho especial de ervas.",
                 ingredientes: [
                     { id: "1", name: "Alface romana"},
@@ -118,8 +161,7 @@ export const pratos:  Pratos[] =[
                 price: "25,00", 
                 count: 1, 
                 favorite: false, 
-                imageSmall: require("@/src/assets/pratos-100/pastry.png"),
-                imageLarge: require("@/src/assets/pratos-300/pastry.png"),
+                image: require("@/src/assets/pratos-300/pastry.png"),
                 description: "Massa folhada recheada com creme e frutas frescas.",
                 ingredientes: [
                     { id: "1", name: "Massa folhada"},
@@ -137,8 +179,7 @@ export const pratos:  Pratos[] =[
                 price: "25,97", 
                 count: 1, 
                 favorite: false, 
-                imageSmall: require("@/src/assets/pratos-100/parma.png"),
-                imageLarge: require("@/src/assets/pratos-300/parma.png"),
+                image: require("@/src/assets/pratos-300/parma.png"),
                 description: "Torradas crocantes com presunto parma e queijo derretido.",
                 ingredientes: [
                     { id: "1", name: "Pão rústico"},
@@ -155,8 +196,7 @@ export const pratos:  Pratos[] =[
                 name: "Macaron", 
                 price: "29.89", count: 1, 
                 favorite: false, 
-                imageSmall: require("@/src/assets/pratos-100/macaron.png"),
-                imageLarge: require("@/src/assets/pratos-300/macaron.png"),
+                image: require("@/src/assets/pratos-300/macaron.png"),
                 description: "Doce francês crocante por fora e cremoso por dentro.",
                 ingredientes: [
                     { id: "1", name: "Farinha de amêndoas"},
@@ -175,8 +215,7 @@ export const pratos:  Pratos[] =[
                 price: "10,99", 
                 count: 1, 
                 favorite: false, 
-                imageSmall: require("@/src/assets/pratos-100/sucoMaracuja.png"),
-                imageLarge: require("@/src/assets/pratos-300/sucoMaracuja.png"),
+                image: require("@/src/assets/pratos-300/sucoMaracuja.png"),
                 description: "Refrescante suco natural de maracujá com toque cítrico.",
                 ingredientes: [
                     { id: "1", name: "Polpa de maracujá"},

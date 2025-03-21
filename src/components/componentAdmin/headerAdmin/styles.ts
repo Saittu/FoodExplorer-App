@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     containerElements: {
         backgroundColor: colors.dark[700],
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
         paddingTop: Platform.OS === "ios" ? 60 : StatusBar.currentHeight || 0,
         paddingBottom: 20,
@@ -16,9 +16,8 @@ export const styles = StyleSheet.create({
     textLogo: {
         flexDirection: "row",
         alignItems: "center",
-        alignContent: "center",
-        justifyContent: "center",
-        gap: 8
+        gap: 8,
+        paddingLeft: 95
     },
 
     text: {
