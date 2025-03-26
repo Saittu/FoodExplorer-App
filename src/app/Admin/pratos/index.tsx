@@ -1,21 +1,82 @@
-import { View, Text, Image, TouchableOpacity, FlatList } from "react-native";
+import { View, Text, Image, TouchableOpacity, FlatList, ActivityIndicator } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./styles";
 import { Button } from "@/src/components/globais/button";
 import { colors } from "@/src/styles/colors";
-import { router, useLocalSearchParams } from "expo-router";
-import { pratos } from "@/src/utils/dados";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { Ingredientes, Pratos, pratos, Pratos_Ingredientes } from "@/src/utils/dados";
 import NavigationAdmin from "@/src/components/componentAdmin/navigationAdmin";
 import HeaderAdmin from "@/src/components/componentAdmin/headerAdmin";
+import { useCallback, useEffect, useState } from "react";
+import { supabase } from "@/src/lib/supabase";
 
 export default function DishesAdminDetails() {
     const { id } = useLocalSearchParams()
+    const [prato, setPrato] = useState<Pratos | null>(null);
+    const [ingredientes, setIngredientes] = useState<Ingredientes[]>([])
+    const [loading, setLoading] = useState(true)
 
-    const prato = pratos.find((p) => p.id === String(id))
+    const fetchData = async () => {
+        try {
+            setLoading(true)
+            const { data: pratosData, error: pratosError } = await supabase
+                .from("pratos")
+                .select("*")
+                .eq("id", id)
+                .single()
+            
+            if (pratosError) {
+                throw pratosError
+            }
 
+            setPrato(pratosData)
+
+            const {data: pratosIngredientesData, error: pratosIngredientesError} = await supabase
+                .from("pratos_ingredientes")
+                .select("*")
+                .eq("prato_id", id)
+            
+            if (pratosIngredientesError) throw pratosIngredientesError
+
+            const ingredientesId = pratosIngredientesData.map((item) => item.ingrediente_id)
+
+            if (ingredientesId.length > 0) {
+                const { data: ingredientesData, error: ingredientesError } = await supabase
+                    .from("ingredientes")
+                    .select("*")
+                    .in("id", ingredientesId)
+                
+                if (ingredientesError) throw ingredientesError
+
+                setIngredientes(ingredientesData)
+            }
+
+
+        } catch (error) {
+            console.error("Erro ao buscar pratos", error);
+            router.replace("/Admin/home")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        if(id) {
+            fetchData()
+        }
+    }, [id])
+
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator size="large" color={colors.tints.carrot[100]} />
+            </View>
+        );
+    }
+
+    // Se não encontrar o prato, retorna null
     if (!prato) {
-        router.replace("/Admin/home")
-        return null
+        return null;
     }
 
     return (
@@ -40,7 +101,7 @@ export default function DishesAdminDetails() {
                         <Text style={styles.descriptionDish}>{prato.description}</Text>
 
                         <FlatList
-                            data={prato.ingredientes}
+                            data={ingredientes}
                             keyExtractor={(item) => item.id}
                             numColumns={3}
                             columnWrapperStyle={{ justifyContent: "center", gap: 36, marginBottom: 24 }}

@@ -1,13 +1,12 @@
-import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert, AppState } from "react-native";
 import { styles } from "./styles";
 import { Input } from "@/src/components/globais/input";
 import { Button } from "@/src/components/globais/button";
 import { useRouter } from "expo-router";
-import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { user, Users } from "@/src/utils/dados";
-import { User } from "@supabase/supabase-js";
-
+import React, { useState } from 'react'
+import { supabase } from "@/src/lib/supabase";
 
 export default function signIn() {
     const router = useRouter()

@@ -63,7 +63,7 @@ export default function updatedDishes() {
             pratos[index] = {
                 ...pratos[index],
                 name,
-                image: imageUri,
+                image: imageUri || prato?.image,
                 description,
                 ingredientes,
                 price,

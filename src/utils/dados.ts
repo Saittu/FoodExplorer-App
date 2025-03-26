@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect } from "react"
+import { supabase } from "../lib/supabase"
 
 
 export interface Users {
@@ -24,9 +25,15 @@ export interface Pratos {
 
 }
 
-export interface Ingredientes  {
+export interface Ingredientes {
     id: string
     name: string
+}
+
+export interface Pratos_Ingredientes {
+    id: string
+    prato_id: string
+    ingrediente_id: string
 }
 
 

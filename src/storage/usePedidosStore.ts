@@ -3,7 +3,7 @@ import { create } from "zustand";
 type Pedido = {
     id: string;
     pratos: { nome: string; quantidade: number }[];
-    date: string
+    date?: string
 }
 
 
