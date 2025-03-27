@@ -7,12 +7,48 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { colors } from '@/src/styles/colors';
 import { useFavorite } from '@/src/storage/useFavorite';
 import { router } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { supabase } from '@/src/lib/supabase';
 
 export default function Favorites() {
-    const { favorites, toggleFavorite } = useFavorite();
+    const { favorites, fetchFavorites, toggleFavorite } = useFavorite();
+    const [loading, setLoading] = useState(true);
+    const [favoritos, setFavoritos] = useState<Pratos[]>([])
+
 
     
-    const favoritos = pratos.filter(prato => favorites[prato.id]);
+    const fetchFavoritos = async () => {
+        setLoading(true);
+
+        const favoritosIds = Object.keys(favorites);
+
+        if (favoritosIds.length === 0) {
+            setFavoritos([]);
+            setLoading(false);
+            return;
+        }
+
+        const { data, error } = await supabase
+            .from("pratos")
+            .select("*")
+            .in("id", favoritosIds);
+
+        if (error) {
+            console.error("Erro ao buscar pratos favoritos:", error);
+        } else {
+            setFavoritos(data || []);
+        }
+
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        fetchFavorites(); 
+    }, []);
+
+    useEffect(() => {
+        fetchFavoritos(); 
+    }, [favorites]);
 
     return(
         <View style={styles.main}>
@@ -28,7 +64,7 @@ export default function Favorites() {
                     ) : (
                         <FlatList
                             data={favoritos}
-                            keyExtractor={item => item.id}
+                            keyExtractor={item => item.id.toString()}
                             scrollEnabled={false}
                             renderItem={({ item }) => (
                                 <View style={styles.item}>

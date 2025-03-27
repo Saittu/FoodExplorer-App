@@ -14,8 +14,16 @@ async function testConnection() {
 }
 
 async function testConnectionPost() {
-    const { data, error } = await supabase.from("order").insert([
-        {name: "teste 2", texte: "teste 2"}
+    const { data, error } = await supabase.from("pratos").insert([
+      { 
+        name: "Salada Ravanello", 
+        price: "49,97", 
+        count: 1, 
+        favorite: false, 
+        image: "",
+        description: "Rabanetes, folhas verdes e molho agridoce salpicados com gergelim.",
+        category_id: "4f73ad6d-51e3-456a-b17f-a7098cbd82bd"
+    },
     ])
 
     if (error) {
@@ -25,4 +33,3 @@ async function testConnectionPost() {
       }
 }
 
-testConnection();
