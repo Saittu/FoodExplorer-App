@@ -1,7 +1,12 @@
 # Bem vindo ao FoodExplorer👋
 
+## O que é o foodExplore?
 
-## Get started
+Um aplicativo construído para delivery no ramo alimentício, um sistema que possui, desde seu usuário administrador, onde é possível realizar o cadastro de pratos, alterá-los e controlar o estado em que o pedido se encontra após a compra do usuário. Já na parte do usuário, temos a apresentação de todos os pratos adicionados pelo administrador, a opção de favoritar pratos de preferência, adicionar no carrinho, sendo possível alterar a quantidade, o histórico de pedidos e também uma tela de pagamento (que pode ser futuramente implementada com métodos reais de pagamento).
+Os detalhes do projeto estarão abaixo, porém, gostaria de ressaltar que o design foi coletado de um projeto realizado na Rocketseat no curso Explorer. O mesmo era feito para a criação de um projeto WEB, mas como eu tinha interesse em aprofundar meus conhecimentos com React-Native, fiz o mesmo apenas para aplicativo mobile. Com isso, consegui aprofundar meus conhecimentos em front-end com React-Native e Expo, e em back-end com o Supabase. Mais abaixo estarão mais informações sobre dependências e tecnologias.
+
+
+## Rodando o projeto
 
 1. Install dependencies
 
@@ -15,35 +20,12 @@
     npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+Na saída, você encontrará opções para abrir em um aplicativo, abaixo estarão alguns dados disponibilizados pelo Expo 
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)
 - [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
